@@ -4,5 +4,8 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/walking.unity
+    guid: 69784066028585746ba7f2dc0f40c4db
   m_configObjects: {}

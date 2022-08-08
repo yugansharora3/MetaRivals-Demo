@@ -14,6 +14,7 @@ public class ShibaController : MonoBehaviour
     private bool groundedPlayer;
     private bool IsPunching = false;
     private bool IsKicking = false;
+    private float distToGround;
 
     [SerializeField]
     private float playerSpeed = 2.0f;
@@ -41,9 +42,14 @@ public class ShibaController : MonoBehaviour
     private void Start()
     {
         cameraMain = Camera.main.transform;
+        //distToGround = this.GetComponent<Collider>.bounds.extents.y;
     }
 
-    void Update()
+    private bool IsGrounded()  {
+        return true;
+        //return Physics.Raycast(transform.position, -Vector3.up, (float)(distToGround + 0.1));
+    }
+void Update()
     {
         groundedPlayer = controller.isGrounded;
         if (groundedPlayer && playerVelocity.y < 0)
@@ -54,7 +60,6 @@ public class ShibaController : MonoBehaviour
         Vector2 movementInput = playerinput.PlayerMain.Move.ReadValue<Vector2>();
         Vector3 move = cameraMain.forward * movementInput.y + cameraMain.right * movementInput.x;
         move.y = 0f;
-        //Vector3 move = new Vector3(movementInput.x, 0f, movementInput.y);
         controller.Move(move * Time.deltaTime * playerSpeed);
 
         if (anim.GetCurrentAnimatorStateInfo(0).IsName("punch"))
@@ -73,7 +78,7 @@ public class ShibaController : MonoBehaviour
         }
 
         // Changes the height position of the player..
-        if (playerinput.PlayerMain.Jump.triggered && groundedPlayer)
+        if (playerinput.PlayerMain.Jump.triggered )
         {
             //playerVelocity.y += Mathf.Sqrt(jumpHeight * -3.0f * gravityValue);
             anim.SetBool("jump", true);
