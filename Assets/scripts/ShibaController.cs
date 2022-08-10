@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class ShibaController : MonoBehaviour
 {
+    float frame = 0f;
     public Animator anim;
 
     private ShibaControls playerinput;
@@ -14,7 +15,9 @@ public class ShibaController : MonoBehaviour
     private bool groundedPlayer;
     private bool IsPunching = false;
     private bool IsKicking = false;
-    private float distToGround;
+    private bool IsJumping = false;
+    private float RefreshRate;
+    private bool velocityGiven = false;
 
     [SerializeField]
     private float playerSpeed = 2.0f;
@@ -41,16 +44,17 @@ public class ShibaController : MonoBehaviour
 
     private void Start()
     {
+        
+        Debug.Log("Refresh = " + RefreshRate);
         cameraMain = Camera.main.transform;
-        //distToGround = this.GetComponent<Collider>.bounds.extents.y;
     }
 
     private bool IsGrounded()  {
         return true;
-        //return Physics.Raycast(transform.position, -Vector3.up, (float)(distToGround + 0.1));
     }
-void Update()
+    void Update()
     {
+        
         groundedPlayer = controller.isGrounded;
         if (groundedPlayer && playerVelocity.y < 0)
         {
@@ -60,14 +64,23 @@ void Update()
         Vector2 movementInput = playerinput.PlayerMain.Move.ReadValue<Vector2>();
         Vector3 move = cameraMain.forward * movementInput.y + cameraMain.right * movementInput.x;
         move.y = 0f;
+        float mag = Vector3.Magnitude(move);
+        if (mag > 0.7)
+            playerSpeed = 3.0f;
+        else
+            playerSpeed = 2.0f;
+
         controller.Move(move * Time.deltaTime * playerSpeed);
-
-        if (anim.GetCurrentAnimatorStateInfo(0).IsName("punch"))
+        anim.SetFloat("moveSpeed", mag);
+        if (anim.GetFloat("moveSpeed") > 0.7 && mag < 0.7)
         {
-            // Avoid any reload.
+            anim.SetFloat("moveSpeed", mag);
         }
-
-        if (move != Vector3.zero && !anim.GetCurrentAnimatorStateInfo(0).IsName("kick") && !anim.GetCurrentAnimatorStateInfo(0).IsName("punch"))
+        else if(anim.GetFloat("moveSpeed") < 0.7 && mag > 0.7)
+        {
+            anim.SetFloat("moveSpeed", mag);
+        }
+        if (move != Vector3.zero)
         {
             anim.SetBool("move", true);
             gameObject.transform.forward = move;
@@ -76,16 +89,33 @@ void Update()
         {
             anim.SetBool("move", false);
         }
-
-        // Changes the height position of the player..
-        if (playerinput.PlayerMain.Jump.triggered )
+        
+        if (playerinput.PlayerMain.Jump.triggered && groundedPlayer)
         {
-            //playerVelocity.y += Mathf.Sqrt(jumpHeight * -3.0f * gravityValue);
-            anim.SetBool("jump", true);
+            if(!IsJumping)
+            IsJumping = true;
+            //anim.SetTrigger("Jumping");
+            anim.SetBool("jump",true);
         }
         else
         {
             anim.SetBool("jump", false);
+        }
+        if(IsJumping)
+        {
+            frame = frame + 1f;
+        }
+        RefreshRate = 1f / Time.deltaTime;
+        if(frame >= RefreshRate/2 && velocityGiven == false)
+        {
+            playerVelocity.y = Mathf.Sqrt(jumpHeight * -3.0f * gravityValue);
+            velocityGiven = true;
+        }
+        if(frame > (RefreshRate * 1.8f))
+        {
+            frame = 0;
+            IsJumping = false;
+            velocityGiven = false;
         }
 
         playerVelocity.y += gravityValue * Time.deltaTime;

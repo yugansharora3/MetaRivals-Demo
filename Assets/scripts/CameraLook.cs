@@ -9,6 +9,8 @@ public class CameraLook : MonoBehaviour
     [SerializeField]
     private float lookSpeed = 1f;
 
+    private Vector2 prev;
+
     private CinemachineFreeLook cinemachine;
     private ShibaControls playerInput;
 
@@ -31,7 +33,9 @@ public class CameraLook : MonoBehaviour
     void Update()
     {
         Vector2 delta = playerInput.PlayerMain.Look.ReadValue<Vector2>();
-        cinemachine.m_XAxis.Value += delta.x * 50 * lookSpeed * Time.deltaTime;
-        //cinemachine.m_YAxis.Value += delta.y * lookSpeed * Time.deltaTime;
+        
+        cinemachine.m_XAxis.Value += delta.x * 100 * lookSpeed * Time.deltaTime;
+        //if(cinemachine.m_YAxis.Value > 0.45 || -delta.y > 0)
+            cinemachine.m_YAxis.Value += -delta.y * lookSpeed * Time.deltaTime;
     }
 }
