@@ -25,6 +25,16 @@ public class ShibaController : MonoBehaviour
     private float jumpHeight = 1.0f;
     [SerializeField]
     private float gravityValue = -9.81f;
+    [SerializeField]
+    private AudioSource JumpingSound;
+    [SerializeField]
+    private AudioSource KickingSound;
+    [SerializeField]
+    private AudioSource PunchingSound;
+    [SerializeField]
+    private AudioSource RunningSound;
+    [SerializeField]
+    private AudioSource WalkingSound;
 
     private void Awake()
     {
@@ -84,18 +94,63 @@ public class ShibaController : MonoBehaviour
         {
             anim.SetBool("move", true);
             gameObject.transform.forward = move;
+            if(!JumpingSound.isPlaying && !KickingSound.isPlaying && !PunchingSound.isPlaying)
+            {
+                if (mag < 0.7)
+                {
+                    if (WalkingSound.isPlaying)
+                    {
+                        WalkingSound.Play();
+                    }
+                    if (RunningSound.isPlaying)
+                    {
+                        RunningSound.Stop();
+                    }                    
+                }
+                else
+                {
+                    if (WalkingSound.isPlaying)
+                    {
+                        WalkingSound.Stop();
+                    }
+                    if (!RunningSound.isPlaying)
+                    {
+                        RunningSound.Play();
+                    }
+                    
+                }
+            }
         }
         else
         {
             anim.SetBool("move", false);
+            if (WalkingSound.isPlaying)
+            {
+                WalkingSound.Stop();
+            }
+            if (RunningSound.isPlaying)
+            {
+                RunningSound.Stop();
+            }
         }
         
         if (playerinput.PlayerMain.Jump.triggered && groundedPlayer)
         {
             if(!IsJumping)
-            IsJumping = true;
-            //anim.SetTrigger("Jumping");
+                IsJumping = true;
             anim.SetBool("jump",true);
+            if (WalkingSound.isPlaying)
+            {
+                WalkingSound.Stop();
+            }
+            if (RunningSound.isPlaying)
+            {
+                RunningSound.Stop();
+            }
+            if (!JumpingSound.isPlaying)
+            {
+                JumpingSound.Play();
+            }
         }
         else
         {
@@ -125,6 +180,15 @@ public class ShibaController : MonoBehaviour
         {
             IsPunching = true;
             anim.SetTrigger("Punching");
+            if (WalkingSound.isPlaying)
+            {
+                WalkingSound.Stop();
+            }
+            if (RunningSound.isPlaying)
+            {
+                RunningSound.Stop();
+            }
+            PunchingSound.Play();
         }
         else
         {
@@ -135,6 +199,15 @@ public class ShibaController : MonoBehaviour
         {
             IsKicking = true;
             anim.SetTrigger("Kicking");
+            if(WalkingSound.isPlaying)
+            {
+                WalkingSound.Stop();
+            }
+            if (RunningSound.isPlaying)
+            {
+                RunningSound.Stop();
+            }
+            KickingSound.Play();
         }
         else
         {

@@ -12,6 +12,7 @@ public class Swipe : MonoBehaviour
     private bool isDragging;
     public Vector2 startTouch, swipeDelta,storedDelta;
     private GameObject[] UIElements;
+    private bool ConsiderSwipe = false;
 
     private CinemachineFreeLook cinemachine;
     private ShibaControls playerinput;
@@ -39,19 +40,18 @@ public class Swipe : MonoBehaviour
     {
         tap = swipeLeft = swipeRight = swipeUp = swipeDown = false;
 
+        int lastTouchIndex = Input.touches.Length - 1;
+
         #region Standalone Inputs
         if (Input.GetMouseButtonDown(0))
         {
-            if (!CheckIfPointIsOnUI((Vector2)Input.mousePosition))
+            if (check())
             {
-                if (check())
-                {
-                    tap = true;
-                    isDragging = true;
-                    startTouch = Input.mousePosition;
-                }
-
+                tap = true;
+                isDragging = true;
+                startTouch = Input.mousePosition;
             }
+                
         }
         else if (Input.GetMouseButtonUp(0))
         {
@@ -63,21 +63,22 @@ public class Swipe : MonoBehaviour
         #region Mobile Inputs
         if (Input.touches.Length > 0)
         {
-            if (Input.touches[0].phase == TouchPhase.Began)
+            if (Input.touches[lastTouchIndex].phase == TouchPhase.Began)
             {
-                if(!CheckIfPointIsOnUI(Input.touches[0].position))
+                if(!CheckIfPointIsOnUI(Input.touches[lastTouchIndex].position))
                 {
                     if(check())
                     {
                         tap = true;
                         isDragging = true;
-                        startTouch = Input.touches[0].position;
+                        startTouch = Input.touches[lastTouchIndex].position;
+                        ConsiderSwipe = true;
                     }
                     
                 }
                 
             }
-            else if (Input.touches[0].phase == TouchPhase.Ended || Input.touches[0].phase == TouchPhase.Canceled )
+            else if (Input.touches[lastTouchIndex].phase == TouchPhase.Ended || Input.touches[lastTouchIndex].phase == TouchPhase.Canceled )
             {
                 isDragging = false;
                 Reset();
@@ -91,49 +92,42 @@ public class Swipe : MonoBehaviour
 
             if (Input.touches.Length > 0)
             {
-                if (!CheckIfPointIsOnUI(Input.touches[0].position))
+                if (!CheckIfPointIsOnUI(Input.touches[lastTouchIndex].position))
                 {
                     if(check())
                     {
-                        swipeDelta = Input.touches[0].position - startTouch;
+                        swipeDelta = Input.touches[lastTouchIndex].position - startTouch;
 
                     }
                 }
             }
             else if (Input.GetMouseButton(0))
             {
-                if (!CheckIfPointIsOnUI((Vector2)Input.mousePosition))
-                {
-                    if (check())
-                    {
-                        swipeDelta = (Vector2)Input.mousePosition - startTouch;
-
-                    }
-                }
+                if (check())
+                    swipeDelta = (Vector2)Input.mousePosition - startTouch;
             }
 
         }
                 
         t += (5f * Time.deltaTime);
         float xval = Mathf.Lerp(0f, swipeDelta.x * 1 * lookSpeed * Time.deltaTime, t);
-        cinemachine.m_XAxis.Value += xval;
+        cinemachine.m_XAxis.Value += swipeDelta.x * 1 * lookSpeed * Time.deltaTime;
         float yval = Mathf.Lerp(0f, -swipeDelta.y * 0.01f * lookSpeed * Time.deltaTime, t);
-        //cinemachine.m_XAxis.Value += swipeDelta.x * 100 * lookSpeed * Time.deltaTime;
-        cinemachine.m_YAxis.Value += yval;
+        cinemachine.m_YAxis.Value += -swipeDelta.y * 0.01f * lookSpeed * Time.deltaTime;
         
         
 
         if (Input.touches.Length > 0)
         {
-            if (Input.touches[0].phase == TouchPhase.Moved)
+            if (Input.touches[lastTouchIndex].phase == TouchPhase.Moved)
             {
-                if (!CheckIfPointIsOnUI(Input.touches[0].position))
+                if (!CheckIfPointIsOnUI(Input.touches[lastTouchIndex].position))
                 {
-                    if (check())
+                    if (ConsiderSwipe)
                     {
                         tap = true;
                         isDragging = true;
-                        startTouch = Input.touches[0].position;
+                        startTouch = Input.touches[lastTouchIndex].position;
                     }
                 }
             }
@@ -144,7 +138,6 @@ public class Swipe : MonoBehaviour
             t = 0.0f;
             storedDelta = Vector2.zero;
         }
-        Debug.Log("END-------------------------------------------------------------------------------");
     }
 
     private void Reset()
@@ -161,14 +154,10 @@ public class Swipe : MonoBehaviour
             RectTransform rTransform = UIElements[i].GetComponent<RectTransform>();
             Rect r = rTransform.rect;
             Vector2 pos = rTransform.anchoredPosition;
-            Debug.Log("position =" + position);
-            Debug.Log("pos =" + pos);
-            Debug.Log("height =" + r.height + " width = " + r.width);
-            if(playerinput.PlayerMain.Move.ReadValue<Vector2>()!= Vector2.zero)
-            {
-                Debug.Log("Not Moving");
-                return true;
-            }
+            //Debug.Log("position =" + position);
+            //Debug.Log("pos =" + pos);
+            //Debug.Log("height =" + r.height + " width = " + r.width);
+            
             if (position.x > 0 && position.x < 500f && position.y > 0f && position.y < 500f)
             {
                 return true;
