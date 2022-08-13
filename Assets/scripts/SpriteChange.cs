@@ -1,12 +1,14 @@
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
-using System.IO;
-using Cinemachine;
 
 public class SpriteChange : MonoBehaviour
 {
     GameObject canvas;
+    [SerializeField]
+    Sprite DullButton;
+    [SerializeField]
+    Sprite GlowingButton;
     [SerializeField]
     Sprite Default;
     [SerializeField]
@@ -17,6 +19,8 @@ public class SpriteChange : MonoBehaviour
     Sprite Third;
     [SerializeField]
     Sprite Fourth;
+    [SerializeField]
+    AudioSource TapSound;
 
     public string objectName, Ape = "ape", Shiba = "shiba", Kushi = "kushi", WhiteWitch = "whiteWitch";
 
@@ -33,32 +37,40 @@ public class SpriteChange : MonoBehaviour
 
     public void OnClick(Sprite sprite)
     {
-        
-        Image image = canvas.transform.GetChild(0).GetComponent<Image>();
-        
+        TapSound.Play();
+        Image image = canvas.transform.GetChild(1).GetComponent<Image>();
+        Image PlayButtonImage = GameObject.Find("PlayButton").GetComponent<Image>();
         image.sprite = sprite;
         if(sprite == First)
         {
             objectName = Ape;
+            PlayButtonImage.sprite = GlowingButton;
         }
         else
         {
             if(sprite == Second)
             {
                 objectName = Shiba;
+                PlayButtonImage.sprite = GlowingButton;
             }
             else
             {
                 if (sprite == Third)
                 {
                     objectName = Kushi;
+                    PlayButtonImage.sprite = GlowingButton;
                 }
                 else if (sprite == Fourth)
                 {
                     objectName = WhiteWitch;
+                    PlayButtonImage.sprite = GlowingButton;
                 }
                 else
+                {
                     objectName = null;
+                    PlayButtonImage.sprite = DullButton;
+                    TapSound.Stop();
+                }
                     
             }
         }
@@ -67,6 +79,7 @@ public class SpriteChange : MonoBehaviour
     
     public void Play()
     {
+        TapSound.Play();
         if(objectName != null)
         {
             PlayerPrefs.SetString("Chosen-Character", objectName);
