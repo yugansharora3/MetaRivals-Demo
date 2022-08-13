@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 31a12e0b70401014caf387bde1bc5932
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - Ape: {instanceID: 0}
+  - Shiba: {instanceID: 0}
+  - Kishu: {instanceID: 0}
+  - WhiteWitch: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

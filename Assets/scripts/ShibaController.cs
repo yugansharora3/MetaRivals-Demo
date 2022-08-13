@@ -54,8 +54,6 @@ public class ShibaController : MonoBehaviour
 
     private void Start()
     {
-        
-        Debug.Log("Refresh = " + RefreshRate);
         cameraMain = Camera.main.transform;
     }
 
