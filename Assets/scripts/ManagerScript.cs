@@ -30,7 +30,7 @@ public class ManagerScript : MonoBehaviour
         {
             SetCharacter(Shiba);
         }
-        if (objectName != "kushi")
+        if (objectName != "kishu")
         {
             GameObject Object = Kishu;
             Object.SetActive(false);
@@ -39,15 +39,15 @@ public class ManagerScript : MonoBehaviour
         {
             SetCharacter(Kishu);
         }
-        //if (objectName != "whiteWitch")
-        //{
-        //    GameObject Object = WhiteWitch;
-        //    Object.SetActive(false);
-        //}
-        //else
-        //{
-        //    SetCharacter(WhiteWitch);
-        //}
+        if (objectName != "whiteWitch")
+        {
+            GameObject Object = WhiteWitch;
+            Object.SetActive(false);
+        }
+        else
+        {
+            SetCharacter(WhiteWitch);
+        }
 
     }
 
