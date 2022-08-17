@@ -12,23 +12,11 @@ public class Swipe : MonoBehaviour
     private bool isDragging;
     public Vector2 startTouch, swipeDelta,storedDelta;
     private GameObject[] UIElements;
-    private bool ConsiderSwipe = false;
 
     private CinemachineFreeLook cinemachine;
-    private ShibaControls playerinput;
     void Start()
     {
-        playerinput = new ShibaControls();
-        GameObject canvas = GameObject.Find("Canvas");
-        UIElements = new GameObject[4];
-        for (int i = 0, j = 0; i < canvas.transform.childCount; i++)
-        {
-            if (canvas.transform.GetChild(i).gameObject.name != "Look")
-            {
-                UIElements[j] = canvas.transform.GetChild(i).gameObject;
-                j++;
-            }
-        }
+
     }
     private void Awake()
     {
@@ -72,7 +60,6 @@ public class Swipe : MonoBehaviour
                         tap = true;
                         isDragging = true;
                         startTouch = Input.touches[lastTouchIndex].position;
-                        ConsiderSwipe = true;
                     }
                     
                 }
@@ -123,12 +110,11 @@ public class Swipe : MonoBehaviour
             {
                 if (!CheckIfPointIsOnUI(Input.touches[lastTouchIndex].position))
                 {
-                    if (ConsiderSwipe)
-                    {
+                    
                         tap = true;
                         isDragging = true;
                         startTouch = Input.touches[lastTouchIndex].position;
-                    }
+                    
                 }
             }
         }
@@ -148,22 +134,10 @@ public class Swipe : MonoBehaviour
 
     private bool CheckIfPointIsOnUI(Vector2 position)
     {
-        for (int i = 0; i < 4; i++)
+        if (position.x > 0 && position.x < 500f && position.y > 0f && position.y < 500f)
         {
-            Vector3 po = UIElements[i].GetComponent<Transform>().position;
-            RectTransform rTransform = UIElements[i].GetComponent<RectTransform>();
-            Rect r = rTransform.rect;
-            Vector2 pos = rTransform.anchoredPosition;
-            //Debug.Log("position =" + position);
-            //Debug.Log("pos =" + pos);
-            //Debug.Log("height =" + r.height + " width = " + r.width);
-            
-            if (position.x > 0 && position.x < 500f && position.y > 0f && position.y < 500f)
-            {
-                return true;
-            }
-        }
-        
+            return true;
+        }       
         return false;
     }
 
