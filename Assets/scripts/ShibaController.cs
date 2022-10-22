@@ -18,6 +18,7 @@ public class ShibaController : MonoBehaviour
     private bool IsJumping = false;
     private float RefreshRate;
     private bool velocityGiven = false;
+    bool CoinCollected = false;
 
     [SerializeField]
     private float playerSpeed = 2.0f;
@@ -40,6 +41,7 @@ public class ShibaController : MonoBehaviour
     {
         playerinput = new ShibaControls();
         controller = GetComponent<CharacterController>();
+        controller.detectCollisions = true;
     }
 
     private void OnEnable()
@@ -57,9 +59,9 @@ public class ShibaController : MonoBehaviour
         cameraMain = Camera.main.transform;
     }
 
-    private bool IsGrounded()  {
-        return true;
-    }
+    //private bool IsGrounded()  {
+    //    return true;
+    //}
     void Update()
     {
         
@@ -78,7 +80,7 @@ public class ShibaController : MonoBehaviour
         else
             playerSpeed = 2.0f;
 
-        controller.Move(move * Time.deltaTime * playerSpeed);
+        controller.Move(playerSpeed * Time.deltaTime * move);
         anim.SetFloat("moveSpeed", mag);
         if (anim.GetFloat("moveSpeed") > 0.7 && mag < 0.7)
         {
@@ -134,8 +136,10 @@ public class ShibaController : MonoBehaviour
         
         if (playerinput.PlayerMain.Jump.triggered && groundedPlayer)
         {
-            if(!IsJumping)
+            if(!IsJumping && !velocityGiven)
+            {
                 IsJumping = true;
+            }
             anim.SetBool("jump",true);
             if (WalkingSound.isPlaying)
             {
@@ -156,7 +160,7 @@ public class ShibaController : MonoBehaviour
         }
         if(IsJumping)
         {
-            frame = frame + 1f;
+            frame++;
         }
         RefreshRate = 1f / Time.deltaTime;
         if(frame >= RefreshRate/2 && velocityGiven == false)
@@ -164,7 +168,7 @@ public class ShibaController : MonoBehaviour
             playerVelocity.y = Mathf.Sqrt(jumpHeight * -3.0f * gravityValue);
             velocityGiven = true;
         }
-        if(frame > (RefreshRate * 1.8f))
+        if (frame > (RefreshRate * 1.8f))
         {
             frame = 0;
             IsJumping = false;
@@ -210,6 +214,25 @@ public class ShibaController : MonoBehaviour
         else
         {
             IsKicking = false;
+        }
+        if(CoinCollected)
+            CoinCollected = false;
+    }
+
+    void AddVelocity()
+    {
+
+    }
+
+    private void OnControllerColliderHit(ControllerColliderHit hit)
+    {
+        if(hit.gameObject.name == "coin" && !CoinCollected)
+        {
+            CoinCollected = true;
+            Debug.Log("collision with coin");
+            hit.gameObject.SetActive(false);
+            GameObject generator =  GameObject.Find("CoinGenerator");
+            generator.GetComponent<GenerateCoin>().Generate();
         }
     }
 }

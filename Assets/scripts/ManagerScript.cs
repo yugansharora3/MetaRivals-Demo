@@ -2,7 +2,7 @@ using System.IO;
 using UnityEngine;
 using Cinemachine;
 
-public class ManagerScript : MonoBehaviour
+public class ManagerScript : Singleton<ManagerScript>
 {
     public GameObject Ape;
     public GameObject Shiba;
