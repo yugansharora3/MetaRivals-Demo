@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
+using UnityEngine.EventSystems;
+using UnityEngine.UI;
+using Unity.VisualScripting;
 
 public class Swipe : MonoBehaviour
 {
@@ -13,10 +16,19 @@ public class Swipe : MonoBehaviour
     public Vector2 startTouch, swipeDelta,storedDelta;
     private GameObject[] UIElements;
 
+    GraphicRaycaster m_Raycaster;
+    PointerEventData m_PointerEventData;
+    EventSystem m_EventSystem;
+
+    public Canvas canvas;
+
     private CinemachineFreeLook cinemachine;
     void Start()
     {
-
+        //Fetch the Raycaster from the GameObject (the Canvas)
+        m_Raycaster = canvas.GetComponent<GraphicRaycaster>();
+        //Fetch the Event System from the Scene
+        m_EventSystem = GetComponent<EventSystem>();
     }
     private void Awake()
     {
@@ -134,14 +146,23 @@ public class Swipe : MonoBehaviour
 
     private bool CheckIfPointIsOnUI(Vector2 position)
     {
-        if (position.x > 0 && position.x < 500f && position.y > 0f && position.y < 500f)
-        {
+        //Set up the new Pointer Event
+        m_PointerEventData = new PointerEventData(m_EventSystem);
+        //Set the Pointer Event Position to that of the mouse position
+        m_PointerEventData.position = position;
+
+        //Create a list of Raycast Results
+        List<RaycastResult> results = new List<RaycastResult>();
+
+        //Raycast using the Graphics Raycaster and mouse click position
+        m_Raycaster.Raycast(m_PointerEventData, results);
+
+        if (results.Count > 0)
             return true;
-        }       
         return false;
     }
 
-    
+
     private bool check()
     {
         if (startTouch.x > 35 && startTouch.x < 135 && startTouch.y > 35 && startTouch.y < 135)

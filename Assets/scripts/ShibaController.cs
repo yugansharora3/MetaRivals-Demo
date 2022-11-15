@@ -21,7 +21,7 @@ public class ShibaController : MonoBehaviour
     bool CoinCollected = false;
 
     [SerializeField]
-    private float playerSpeed = 2.0f;
+    private float playerSpeed = 10.0f;
     [SerializeField]
     private float jumpHeight = 1.0f;
     [SerializeField]
@@ -75,12 +75,13 @@ public class ShibaController : MonoBehaviour
         Vector3 move = cameraMain.forward * movementInput.y + cameraMain.right * movementInput.x;
         move.y = 0f;
         float mag = Vector3.Magnitude(move);
+        float moveSpeed;
         if (mag > 0.7)
-            playerSpeed = 3.0f;
+            moveSpeed = playerSpeed * 1.5f;
         else
-            playerSpeed = 2.0f;
+            moveSpeed = playerSpeed;
 
-        controller.Move(playerSpeed * Time.deltaTime * move);
+        controller.Move(moveSpeed * Time.deltaTime * move);
         anim.SetFloat("moveSpeed", mag);
         if (anim.GetFloat("moveSpeed") > 0.7 && mag < 0.7)
         {
