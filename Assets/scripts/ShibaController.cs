@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class ShibaController : MonoBehaviour
 {
-    float frame = 0f;
     public Animator anim;
 
     private ShibaControls playerinput;
@@ -21,11 +20,11 @@ public class ShibaController : MonoBehaviour
     bool CoinCollected = false;
 
     [SerializeField]
-    private float playerSpeed = 10.0f;
+    private float playerSpeed = 15.0f;
     [SerializeField]
-    private float jumpHeight = 1.0f;
+    private float jumpHeight = 3.0f;
     [SerializeField]
-    private float gravityValue = -9.81f;
+    private float gravityValue = -30f;
     [SerializeField]
     private AudioSource JumpingSound;
     [SerializeField]
@@ -59,9 +58,6 @@ public class ShibaController : MonoBehaviour
         cameraMain = Camera.main.transform;
     }
 
-    //private bool IsGrounded()  {
-    //    return true;
-    //}
     void Update()
     {
         
@@ -137,10 +133,6 @@ public class ShibaController : MonoBehaviour
         
         if (playerinput.PlayerMain.Jump.triggered && groundedPlayer)
         {
-            if(!IsJumping && !velocityGiven)
-            {
-                IsJumping = true;
-            }
             anim.SetBool("jump",true);
             if (WalkingSound.isPlaying)
             {
@@ -159,22 +151,8 @@ public class ShibaController : MonoBehaviour
         {
             anim.SetBool("jump", false);
         }
-        if(IsJumping)
-        {
-            frame++;
-        }
-        RefreshRate = 1f / Time.deltaTime;
-        if(frame >= RefreshRate/2 && velocityGiven == false)
-        {
-            playerVelocity.y = Mathf.Sqrt(jumpHeight * -3.0f * gravityValue);
-            velocityGiven = true;
-        }
-        if (frame > (RefreshRate * 1.8f))
-        {
-            frame = 0;
-            IsJumping = false;
-            velocityGiven = false;
-        }
+        
+        
 
         playerVelocity.y += gravityValue * Time.deltaTime;
         controller.Move(playerVelocity * Time.deltaTime);
@@ -222,7 +200,7 @@ public class ShibaController : MonoBehaviour
 
     void AddVelocity()
     {
-
+        playerVelocity.y = Mathf.Sqrt(jumpHeight * -3.0f * gravityValue);
     }
 
     private void OnControllerColliderHit(ControllerColliderHit hit)
