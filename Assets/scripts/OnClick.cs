@@ -5,38 +5,26 @@ using UnityEngine.SceneManagement;
 public class OnClick : MonoBehaviour
 {
     [SerializeField]
-    public Sprite Selected;
-    [SerializeField]
-    public Sprite UnSelected;
-    [SerializeField]
     public AudioSource TapSound;
     static string objname = null;
-    private string Ape = "ape", Shiba = "shiba", Kishu = "kishu", WhiteWitch = "whiteWitch";
+    private string Ape = "ape", Shiba = "shiba", Kishu = "kishu", WhiteWitch = "whiteWitch",volt = "volt";
     public void OnSelect()
     {
         if(TapSound != null)
             TapSound.Play();
-        GameObject backgroundButton = GameObject.Find("Canvas1").transform.GetChild(1).gameObject;
-        Image backgroundimage = backgroundButton.transform.GetChild(0).gameObject.GetComponent<Image>();
-        backgroundimage.sprite = backgroundButton.GetComponent<OnClick>().UnSelected;
-        GameObject child = this.gameObject.transform.GetChild(0).gameObject;
-        Image image = child.GetComponent<Image>();
-        image.sprite = Selected;
         setObjectName(this.gameObject);
     }
     public void OnDeselect()
     {
-        GameObject child = this.gameObject.transform.GetChild(0).gameObject;
-        Image image = child.GetComponent<Image>();
-        image.sprite = UnSelected;
+        
     }
     void setObjectName(GameObject obj)
     {
-        GameObject playButton = GameObject.Find("Canvas1").transform.GetChild(6).gameObject;
+        GameObject playButton = GameObject.Find("Canvas1").transform.GetChild(5).gameObject;
         if (obj.name != "BackGround-Button")
         {
             Image playButtonImage = playButton.transform.GetChild(0).gameObject.GetComponent<Image>();
-            playButtonImage.sprite = playButton.GetComponent<OnClick>().Selected;
+            playButtonImage.sprite = playButton.GetComponent<OnPlay>().Selected;
             if (obj.name == "Ape-Button")
             {
                  objname = Ape;
@@ -55,8 +43,15 @@ public class OnClick : MonoBehaviour
                     }
                     else
                     {
-                        //its white witch
-                        objname = WhiteWitch;
+                        if (obj.name == "volt-Button")
+                        {
+                            objname = volt;
+                        }
+                        else
+                        {
+                            //its white witch
+                            objname = WhiteWitch;
+                        }
                     }
                 }
             }
@@ -65,7 +60,7 @@ public class OnClick : MonoBehaviour
         {
             objname = null;
             Image playButtonImage = playButton.transform.GetChild(0).gameObject.GetComponent<Image>();
-            playButtonImage.sprite = playButton.GetComponent<OnClick>().UnSelected;
+            playButtonImage.sprite = playButton.GetComponent<OnPlay>().UnSelected;
         }
     }
     public void Play()
@@ -75,7 +70,6 @@ public class OnClick : MonoBehaviour
         {
             PlayerPrefs.SetString("Chosen-Character", objname);
             SceneManager.LoadScene("walking");
-
         }
     }
 }

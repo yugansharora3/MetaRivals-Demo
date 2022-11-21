@@ -8,6 +8,7 @@ public class ManagerScript : Singleton<ManagerScript>
     public GameObject Shiba;
     public GameObject Kishu;
     public GameObject WhiteWitch;
+    public GameObject Volt;
 
     void Awake()
     {
@@ -20,6 +21,15 @@ public class ManagerScript : Singleton<ManagerScript>
         else
         {
             SetCharacter(Ape);
+        }
+        if (objectName != "volt")
+        {
+            GameObject Object = Volt;
+            Object.SetActive(false);
+        }
+        else
+        {
+            SetCharacter(Volt);
         }
         if (objectName != "shiba")
         {
@@ -53,7 +63,6 @@ public class ManagerScript : Singleton<ManagerScript>
 
     void SetCharacter(GameObject obj)
     {
-        //obj.SetActive(true);
         GameObject cinemachine = GameObject.Find("CM FreeLook");
         cinemachine.GetComponent<CinemachineFreeLook>().Follow = obj.transform;
         cinemachine.GetComponent<CinemachineFreeLook>().LookAt = obj.transform;
