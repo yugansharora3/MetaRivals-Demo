@@ -13,10 +13,11 @@ public class OnClick : MonoBehaviour
         if(TapSound != null)
             TapSound.Play();
         setObjectName(this.gameObject);
+        GameObject.Find("LightsManager").GetComponent<LightManager>().change(objname);
     }
     public void OnDeselect()
     {
-        
+        GameObject.Find("LightsManager").GetComponent<LightManager>().unchange();
     }
     void setObjectName(GameObject obj)
     {

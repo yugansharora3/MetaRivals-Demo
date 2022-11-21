@@ -17,7 +17,7 @@ public class ShibaController : MonoBehaviour
     bool CoinCollected = false;
 
     [SerializeField]
-    private float playerSpeed = 15.0f;
+    private float playerSpeed = 20.0f;
     [SerializeField]
     private float jumpHeight = 3.0f;
     [SerializeField]
