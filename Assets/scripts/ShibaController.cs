@@ -14,9 +14,6 @@ public class ShibaController : MonoBehaviour
     private bool groundedPlayer;
     private bool IsPunching = false;
     private bool IsKicking = false;
-    private bool IsJumping = false;
-    private float RefreshRate;
-    private bool velocityGiven = false;
     bool CoinCollected = false;
 
     [SerializeField]

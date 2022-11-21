@@ -6,7 +6,6 @@ public class SaturnRotate : MonoBehaviour
 {
     public float RotateSpeed;
     public float SkyRotateSpeed;
-    public Material sky;
 
     void Update()
     {
