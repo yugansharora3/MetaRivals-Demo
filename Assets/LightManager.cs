@@ -5,7 +5,10 @@ using UnityEngine;
 public class LightManager : MonoBehaviour
 {
     [SerializeField]
-    GameObject light1, light2, light3;
+    GameObject light1, light2;
+    
+    [SerializeField]
+    Light light;
 
     [SerializeField]
     GameObject SpotLight;
@@ -31,19 +34,19 @@ public class LightManager : MonoBehaviour
         Shibapos.y += 20f;
         Kishupos.y += 20f;
         WhiteWitchpos.y += 20f;
-        WhiteWitchpos.z -= 2f;
+        WhiteWitchpos.z += 2f;
         Voltpos.y += 20f;
 
+        light.intensity = 1f;
         light1.SetActive(true);
         light2.SetActive(true);
-        light3.SetActive(true);
         SpotLight.SetActive(false);
     }
     public void change(string name)
     {
+        light.intensity = 0.5f;
         light1.SetActive(false);
         light2.SetActive(false);
-        light3.SetActive(false);
         SpotLight.SetActive(true);
         if (name == ape)
         {
@@ -85,9 +88,9 @@ public class LightManager : MonoBehaviour
 
     public void unchange()
     {
+        light.intensity = 1f;
         light1.SetActive(true);
         light2.SetActive(true);
-        light3.SetActive(true);
         SpotLight.SetActive(false);
     }
 }
