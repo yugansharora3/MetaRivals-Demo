@@ -25,12 +25,10 @@ public class GenerateCoin : MonoBehaviour
         if (road.transform.rotation.y > 0.25f || road.transform.rotation.y < -0.25f)
         {
             v.z += offset;
-
         }
         else
         {
             v.x += offset;
-
         }
         Coin.transform.position = road.transform.position + v ;
         Debug.Log(v);
