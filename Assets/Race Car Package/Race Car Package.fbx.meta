@@ -1,116 +1,332 @@
 fileFormatVersion: 2
 guid: 6df8799e47834944c85abaf3e659049d
 ModelImporter:
-  serializedVersion: 23
-  fileIDToRecycleName:
-    100000: Car
-    100002: Car_1
-    100004: Car_2
-    100006: Car_3
-    100008: //RootNode
-    100010: wheel
-    100012: wheel_1
-    100014: wheel_1_2
-    100016: wheel_1_3
-    100018: wheel_1_4
-    100020: wheel_1_5
-    100022: wheel_1_6
-    100024: wheel_1_7
-    100026: wheel_1_8
-    100028: wheel_2
-    100030: wheel_2_2
-    100032: wheel_2_3
-    100034: wheel_2_4
-    100036: wheel_2_5
-    100038: wheel_3
-    100040: wheel_4
-    400000: Car
-    400002: Car_1
-    400004: Car_2
-    400006: Car_3
-    400008: //RootNode
-    400010: wheel
-    400012: wheel_1
-    400014: wheel_1_2
-    400016: wheel_1_3
-    400018: wheel_1_4
-    400020: wheel_1_5
-    400022: wheel_1_6
-    400024: wheel_1_7
-    400026: wheel_1_8
-    400028: wheel_2
-    400030: wheel_2_2
-    400032: wheel_2_3
-    400034: wheel_2_4
-    400036: wheel_2_5
-    400038: wheel_3
-    400040: wheel_4
-    2100000: Mat.5
-    2100002: Mat.1
-    2100004: Mat.4
-    2100006: Mat.5_1
-    2100008: Mat.5_2
-    2100010: Mat.5_3
-    2300000: Car
-    2300002: Car_1
-    2300004: Car_2
-    2300006: Car_3
-    2300008: wheel
-    2300010: wheel_1
-    2300012: wheel_1_2
-    2300014: wheel_1_3
-    2300016: wheel_1_4
-    2300018: wheel_1_5
-    2300020: wheel_1_6
-    2300022: wheel_1_7
-    2300024: wheel_1_8
-    2300026: wheel_2
-    2300028: wheel_2_2
-    2300030: wheel_2_3
-    2300032: wheel_2_4
-    2300034: wheel_2_5
-    2300036: wheel_3
-    2300038: wheel_4
-    3300000: Car
-    3300002: Car_1
-    3300004: Car_2
-    3300006: Car_3
-    3300008: wheel
-    3300010: wheel_1
-    3300012: wheel_1_2
-    3300014: wheel_1_3
-    3300016: wheel_1_4
-    3300018: wheel_1_5
-    3300020: wheel_1_6
-    3300022: wheel_1_7
-    3300024: wheel_1_8
-    3300026: wheel_2
-    3300028: wheel_2_2
-    3300030: wheel_2_3
-    3300032: wheel_2_4
-    3300034: wheel_2_5
-    3300036: wheel_3
-    3300038: wheel_4
-    4300000: Car
-    4300002: wheel_1
-    4300004: wheel
-    4300006: wheel_1_2
-    4300008: wheel_2
-    4300010: Car_1
-    4300012: wheel_1_3
-    4300014: wheel_2_2
-    4300016: wheel_1_4
-    4300018: wheel_2_3
-    4300020: Car_2
-    4300022: wheel_1_5
-    4300024: wheel_3
-    4300026: wheel_1_6
-    4300028: wheel_2_4
-    4300030: Car_3
-    4300032: wheel_1_7
-    4300034: wheel_4
-    4300036: wheel_1_8
-    4300038: wheel_2_5
+  serializedVersion: 21300
+  internalIDToNameTable:
+  - first:
+      1: 100000
+    second: Car
+  - first:
+      1: 100002
+    second: Car_1
+  - first:
+      1: 100004
+    second: Car_2
+  - first:
+      1: 100006
+    second: Car_3
+  - first:
+      1: 100008
+    second: //RootNode
+  - first:
+      1: 100010
+    second: wheel
+  - first:
+      1: 100012
+    second: wheel_1
+  - first:
+      1: 100014
+    second: wheel_1_2
+  - first:
+      1: 100016
+    second: wheel_1_3
+  - first:
+      1: 100018
+    second: wheel_1_4
+  - first:
+      1: 100020
+    second: wheel_1_5
+  - first:
+      1: 100022
+    second: wheel_1_6
+  - first:
+      1: 100024
+    second: wheel_1_7
+  - first:
+      1: 100026
+    second: wheel_1_8
+  - first:
+      1: 100028
+    second: wheel_2
+  - first:
+      1: 100030
+    second: wheel_2_2
+  - first:
+      1: 100032
+    second: wheel_2_3
+  - first:
+      1: 100034
+    second: wheel_2_4
+  - first:
+      1: 100036
+    second: wheel_2_5
+  - first:
+      1: 100038
+    second: wheel_3
+  - first:
+      1: 100040
+    second: wheel_4
+  - first:
+      4: 400000
+    second: Car
+  - first:
+      4: 400002
+    second: Car_1
+  - first:
+      4: 400004
+    second: Car_2
+  - first:
+      4: 400006
+    second: Car_3
+  - first:
+      4: 400008
+    second: //RootNode
+  - first:
+      4: 400010
+    second: wheel
+  - first:
+      4: 400012
+    second: wheel_1
+  - first:
+      4: 400014
+    second: wheel_1_2
+  - first:
+      4: 400016
+    second: wheel_1_3
+  - first:
+      4: 400018
+    second: wheel_1_4
+  - first:
+      4: 400020
+    second: wheel_1_5
+  - first:
+      4: 400022
+    second: wheel_1_6
+  - first:
+      4: 400024
+    second: wheel_1_7
+  - first:
+      4: 400026
+    second: wheel_1_8
+  - first:
+      4: 400028
+    second: wheel_2
+  - first:
+      4: 400030
+    second: wheel_2_2
+  - first:
+      4: 400032
+    second: wheel_2_3
+  - first:
+      4: 400034
+    second: wheel_2_4
+  - first:
+      4: 400036
+    second: wheel_2_5
+  - first:
+      4: 400038
+    second: wheel_3
+  - first:
+      4: 400040
+    second: wheel_4
+  - first:
+      21: 2100000
+    second: Mat.5
+  - first:
+      21: 2100002
+    second: Mat.1
+  - first:
+      21: 2100004
+    second: Mat.4
+  - first:
+      21: 2100006
+    second: Mat.5_1
+  - first:
+      21: 2100008
+    second: Mat.5_2
+  - first:
+      21: 2100010
+    second: Mat.5_3
+  - first:
+      23: 2300000
+    second: Car
+  - first:
+      23: 2300002
+    second: Car_1
+  - first:
+      23: 2300004
+    second: Car_2
+  - first:
+      23: 2300006
+    second: Car_3
+  - first:
+      23: 2300008
+    second: wheel
+  - first:
+      23: 2300010
+    second: wheel_1
+  - first:
+      23: 2300012
+    second: wheel_1_2
+  - first:
+      23: 2300014
+    second: wheel_1_3
+  - first:
+      23: 2300016
+    second: wheel_1_4
+  - first:
+      23: 2300018
+    second: wheel_1_5
+  - first:
+      23: 2300020
+    second: wheel_1_6
+  - first:
+      23: 2300022
+    second: wheel_1_7
+  - first:
+      23: 2300024
+    second: wheel_1_8
+  - first:
+      23: 2300026
+    second: wheel_2
+  - first:
+      23: 2300028
+    second: wheel_2_2
+  - first:
+      23: 2300030
+    second: wheel_2_3
+  - first:
+      23: 2300032
+    second: wheel_2_4
+  - first:
+      23: 2300034
+    second: wheel_2_5
+  - first:
+      23: 2300036
+    second: wheel_3
+  - first:
+      23: 2300038
+    second: wheel_4
+  - first:
+      33: 3300000
+    second: Car
+  - first:
+      33: 3300002
+    second: Car_1
+  - first:
+      33: 3300004
+    second: Car_2
+  - first:
+      33: 3300006
+    second: Car_3
+  - first:
+      33: 3300008
+    second: wheel
+  - first:
+      33: 3300010
+    second: wheel_1
+  - first:
+      33: 3300012
+    second: wheel_1_2
+  - first:
+      33: 3300014
+    second: wheel_1_3
+  - first:
+      33: 3300016
+    second: wheel_1_4
+  - first:
+      33: 3300018
+    second: wheel_1_5
+  - first:
+      33: 3300020
+    second: wheel_1_6
+  - first:
+      33: 3300022
+    second: wheel_1_7
+  - first:
+      33: 3300024
+    second: wheel_1_8
+  - first:
+      33: 3300026
+    second: wheel_2
+  - first:
+      33: 3300028
+    second: wheel_2_2
+  - first:
+      33: 3300030
+    second: wheel_2_3
+  - first:
+      33: 3300032
+    second: wheel_2_4
+  - first:
+      33: 3300034
+    second: wheel_2_5
+  - first:
+      33: 3300036
+    second: wheel_3
+  - first:
+      33: 3300038
+    second: wheel_4
+  - first:
+      43: 4300000
+    second: Car
+  - first:
+      43: 4300002
+    second: wheel_1
+  - first:
+      43: 4300004
+    second: wheel
+  - first:
+      43: 4300006
+    second: wheel_1_2
+  - first:
+      43: 4300008
+    second: wheel_2
+  - first:
+      43: 4300010
+    second: Car_1
+  - first:
+      43: 4300012
+    second: wheel_1_3
+  - first:
+      43: 4300014
+    second: wheel_2_2
+  - first:
+      43: 4300016
+    second: wheel_1_4
+  - first:
+      43: 4300018
+    second: wheel_2_3
+  - first:
+      43: 4300020
+    second: Car_2
+  - first:
+      43: 4300022
+    second: wheel_1_5
+  - first:
+      43: 4300024
+    second: wheel_3
+  - first:
+      43: 4300026
+    second: wheel_1_6
+  - first:
+      43: 4300028
+    second: wheel_2_4
+  - first:
+      43: 4300030
+    second: Car_3
+  - first:
+      43: 4300032
+    second: wheel_1_7
+  - first:
+      43: 4300034
+    second: wheel_4
+  - first:
+      43: 4300036
+    second: wheel_1_8
+  - first:
+      43: 4300038
+    second: wheel_2_5
   externalObjects:
   - first:
       type: UnityEngine:Material
@@ -143,7 +359,7 @@ ModelImporter:
       name: Mat.5_3
     second: {fileID: 2100000, guid: 0cd8815a1ce46844b92fa77324f1f0e3, type: 2}
   materials:
-    importMaterials: 1
+    materialImportMode: 1
     materialName: 0
     materialSearch: 1
     materialLocation: 1
@@ -152,6 +368,7 @@ ModelImporter:
     bakeSimulation: 0
     resampleCurves: 1
     optimizeGameObjects: 0
+    removeConstantScaleCurves: 0
     motionNodeName: 
     rigImportErrors: 
     rigImportWarnings: 
@@ -175,34 +392,47 @@ ModelImporter:
     globalScale: 1
     meshCompression: 0
     addColliders: 0
+    useSRGBMaterialColor: 1
+    sortHierarchyByName: 1
     importVisibility: 1
     importBlendShapes: 1
     importCameras: 1
     importLights: 1
+    nodeNameCollisionStrategy: 0
+    fileIdsGeneration: 1
     swapUVChannels: 0
     generateSecondaryUV: 0
     useFileUnits: 1
-    optimizeMeshForGPU: 1
     keepQuads: 0
     weldVertices: 1
+    bakeAxisConversion: 0
     preserveHierarchy: 0
+    skinWeightsMode: 0
+    maxBonesPerVertex: 4
+    minBoneWeight: 0.001
+    optimizeBones: 1
+    meshOptimizationFlags: -1
     indexFormat: 0
     secondaryUVAngleDistortion: 8
     secondaryUVAreaDistortion: 15.000001
     secondaryUVHardAngle: 88
+    secondaryUVMarginMethod: 0
+    secondaryUVMinLightmapResolution: 40
+    secondaryUVMinObjectScale: 1
     secondaryUVPackMargin: 4
     useFileScale: 1
-    previousCalculatedGlobalScale: 1
-    hasPreviousCalculatedGlobalScale: 0
   tangentSpace:
     normalSmoothAngle: 60
     normalImportMode: 0
     tangentImportMode: 3
     normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  referencedClips: []
   importAnimation: 1
-  copyAvatar: 0
   humanDescription:
-    serializedVersion: 2
+    serializedVersion: 3
     human: []
     skeleton: []
     armTwist: 0.5
@@ -212,14 +442,18 @@ ModelImporter:
     armStretch: 0.05
     legStretch: 0.05
     feetSpacing: 0
+    globalScale: 1
     rootMotionBoneName: 
-    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
     hasTranslationDoF: 0
     hasExtraRoot: 0
     skeletonHasParents: 1
   lastHumanDescriptionAvatarSource: {instanceID: 0}
+  autoGenerateAvatarMappingIfUnspecified: 1
   animationType: 0
   humanoidOversampling: 1
+  avatarSetup: 0
+  addHumanoidExtraRootOnlyWhenUsingAvatar: 0
+  remapMaterialsIfMaterialImportModeIsNone: 1
   additionalBone: 0
   userData: 
   assetBundleName: 

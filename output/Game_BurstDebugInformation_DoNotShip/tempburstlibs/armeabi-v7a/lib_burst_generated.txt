@@ -192,10 +192,10 @@ Library: lib_burst_generated
 --root-assembly=D:\yash\work\Game\demo-game\MetaRivals-Demo\Temp\StagingArea\Data\Managed\Unity.Services.Analytics.dll
 --root-assembly=D:\yash\work\Game\demo-game\MetaRivals-Demo\Temp\StagingArea\Data\Managed\UnityEngine.Monetization.dll
 --root-assembly=D:\yash\work\Game\demo-game\MetaRivals-Demo\Temp\StagingArea\Data\Managed\Unity.Services.Core.Internal.dll
+--root-assembly=D:\yash\work\Game\demo-game\MetaRivals-Demo\Temp\StagingArea\Data\Managed\Assembly-CSharp.dll
 --root-assembly=D:\yash\work\Game\demo-game\MetaRivals-Demo\Temp\StagingArea\Data\Managed\Unity.Timeline.dll
 --root-assembly=D:\yash\work\Game\demo-game\MetaRivals-Demo\Temp\StagingArea\Data\Managed\Unity.Mathematics.dll
 --root-assembly=D:\yash\work\Game\demo-game\MetaRivals-Demo\Temp\StagingArea\Data\Managed\Unity.VisualEffectGraph.Runtime.dll
---root-assembly=D:\yash\work\Game\demo-game\MetaRivals-Demo\Temp\StagingArea\Data\Managed\Assembly-CSharp.dll
 --root-assembly=D:\yash\work\Game\demo-game\MetaRivals-Demo\Temp\StagingArea\Data\Managed\Unity.Services.Core.Scheduler.dll
 --root-assembly=D:\yash\work\Game\demo-game\MetaRivals-Demo\Temp\StagingArea\Data\Managed\Unity.Services.Core.Device.dll
 --root-assembly=D:\yash\work\Game\demo-game\MetaRivals-Demo\Temp\StagingArea\Data\Managed\Unity.TerrainTools.dll
