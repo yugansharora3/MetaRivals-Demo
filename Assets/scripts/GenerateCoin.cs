@@ -18,7 +18,7 @@ public class GenerateCoin : MonoBehaviour
         int SelectedRoad = Random.Range(0, Roads.transform.childCount);
         Debug.Log("selected road = " + SelectedRoad);
         GameObject road = Roads.transform.GetChild(SelectedRoad).gameObject;
-        Vector3 v = new(0.0f, 1.37f, 0.0f);
+        Vector3 v = new(0.0f, 4.0f, 0.0f);
         int length = (int)Vector3.Scale(road.GetComponent<MeshFilter>().mesh.bounds.extents, road.transform.localScale).x;
         int offset = Random.Range(0, length);
         Debug.Log("extents " + Vector3.Scale(road.GetComponent<MeshFilter>().mesh.bounds.extents,road.transform.localScale));
@@ -32,7 +32,7 @@ public class GenerateCoin : MonoBehaviour
             v.x += offset;
 
         }
-        Coin.transform.position = road.transform.localPosition + v ;
+        Coin.transform.position = road.transform.position + v ;
         Debug.Log(v);
     }
 
