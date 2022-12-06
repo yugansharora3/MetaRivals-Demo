@@ -17,7 +17,7 @@ public class ShibaController : MonoBehaviour
     bool CoinCollected = false;
 
     [SerializeField]
-    private float playerSpeed = 20.0f;
+    private float playerSpeed = 25.0f;
     [SerializeField]
     private float jumpHeight = 3.0f;
     [SerializeField]
@@ -202,13 +202,13 @@ public class ShibaController : MonoBehaviour
 
     private void OnControllerColliderHit(ControllerColliderHit hit)
     {
-        if(hit.gameObject.name == "coin" && !CoinCollected)
+        if(hit.gameObject.tag == "Coin" && !CoinCollected)
         {
             CoinCollected = true;
             Debug.Log("collision with coin");
             hit.gameObject.SetActive(false);
             GameObject generator =  GameObject.Find("CoinGenerator");
-            generator.GetComponent<GenerateCoin>().Generate();
+            //generator.GetComponent<GenerateCoin>().Generate();
         }
     }
 }
