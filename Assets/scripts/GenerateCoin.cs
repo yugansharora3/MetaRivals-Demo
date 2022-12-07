@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -9,7 +10,9 @@ public class GenerateCoin : MonoBehaviour
     public GameObject CoinsParent;
     public GameObject InsidePlatforms;
     public GameObject OutsidePlatforms;
+    public GameObject ScoreBoard;
     int InsideCoins = 10, OutsideCoins = 10;
+    private int score = 0,TotalCoins = 0;
 
     void Start()
     {
@@ -18,6 +21,18 @@ public class GenerateCoin : MonoBehaviour
         
         for (int i = 0; i < OutsideCoins; i++)
             Generate(OutsidePlatforms);
+        TotalCoins = InsideCoins + OutsideCoins;
+        UpdateScore();
+    }
+
+    public void UpdateScore()
+    {
+        TextMeshProUGUI Text = ScoreBoard.GetComponent<TextMeshProUGUI>();
+        Text.text = "MRVL Points : " + score + "/" + TotalCoins;
+    }
+    public void IncreaseScore()
+    {
+        score++;
     }
 
     public void Generate(GameObject Platforms)
@@ -31,17 +46,23 @@ public class GenerateCoin : MonoBehaviour
         Debug.Log("extents " + Vector3.Scale(road.GetComponent<MeshFilter>().mesh.bounds.extents,road.transform.localScale));
         if (road.transform.rotation.y > 0.25f || road.transform.rotation.y < -0.25f)
         {
-            v.x += offset;
+            v.z += offset;
         }
         else
         {
-            v.z += offset;
+            v.x += offset;
         }
+        CheckIfNear();
         GameObject coin = Instantiate(Coin, road.transform.position + v, Quaternion.identity,CoinsParent.transform);
         coin.name = coin.name + Platforms.name;
         CoinInfo info = coin.AddComponent<CoinInfo>();
-        info.Init(SelectedRoad, v);
-        Debug.Log(v);
+        info.Init(road, SelectedRoad, v);
+        //Debug.Log(v);
+    }
+
+    public bool CheckIfNear()
+    {
+        return true;
     }
 
 }

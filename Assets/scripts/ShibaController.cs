@@ -207,8 +207,10 @@ public class ShibaController : MonoBehaviour
             CoinCollected = true;
             Debug.Log("collision with coin");
             hit.gameObject.SetActive(false);
-            GameObject generator =  GameObject.Find("CoinGenerator");
-            //generator.GetComponent<GenerateCoin>().Generate();
+            GenerateCoin generator =  GameObject.Find("CoinGenerator").GetComponent<GenerateCoin>();
+            generator.IncreaseScore();
+            generator.UpdateScore();
         }
     }
+
 }
