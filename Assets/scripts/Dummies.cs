@@ -12,6 +12,7 @@ public class Dummies : MonoBehaviour
     private NavMeshAgent agent;
 
     public Animator anim;
+    private float prevMag = 0.0f;
     void Start()
     {
         targets = new List<Vector3>();
@@ -28,14 +29,31 @@ public class Dummies : MonoBehaviour
     void Update()
     {
         distance = Vector3.Distance(transform.position, currentTarget);
-        if(distance < 1 )
+        if(distance < 1 || agent.velocity.magnitude == 0)
         {
             int index = Random.Range(0, targets.Count);
             currentTarget = targets[index];
         }
         
         agent.SetDestination(currentTarget);
+        float mag = agent.velocity.magnitude/agent.speed;
+        if(mag > 0.5f && prevMag < 0.5f)
+        {
+            mag = Mathf.Lerp(mag, prevMag, 0.1f);
+        }
 
-        Debug.Log(agent.velocity);
+        if (mag < 0.5f && prevMag > 0.5f)
+        {
+            mag = Mathf.Lerp(mag, prevMag, 0.9f);
+        }
+        
+
+        anim.SetFloat("moveSpeed", mag);
+        if (mag == 0)
+        {
+            anim.SetBool("move", false);
+        }
+        prevMag = mag;
+        //Debug.Log(agent.velocity.magnitude);
     }
 }
