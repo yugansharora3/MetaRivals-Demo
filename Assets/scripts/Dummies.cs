@@ -1,9 +1,11 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.AI;
+using Random = UnityEngine.Random;
 
 public class Dummies : MonoBehaviour
 {
@@ -16,10 +18,11 @@ public class Dummies : MonoBehaviour
     public Animator anim;
     private float prevMag = 0.0f;
 
-    private static List<string> m_namesList;
+    private List<string> m_namesList;
     private TextAsset m_textAsset;
     TextMeshPro m_text;
 
+    public int index;
     public GameObject TextObj;
     private void Awake()
     {
@@ -35,8 +38,11 @@ public class Dummies : MonoBehaviour
         }
         agent = GetComponent<NavMeshAgent>();
         agent.speed = 10;
-        int index = Random.Range(0, targets.Count);
-        currentTarget = targets[index];
+
+        index = Random.Range(TargetsObj.transform.childCount - 2, TargetsObj.transform.childCount-1);
+        Transform target = TargetsObj.transform.GetChild(index);
+        currentTarget = target.position;
+        agent.SetDestination(currentTarget);
 
         m_text = TextObj.GetComponent<TextMeshPro>();
         m_text.text = m_namesList[Random.Range(0, m_namesList.Count)];
@@ -45,15 +51,24 @@ public class Dummies : MonoBehaviour
     void Update()
     {
         TextObj.transform.rotation = Camera.main.transform.rotation;
-
+        //int index ;
         distance = Vector3.Distance(transform.position, currentTarget);
         if(distance < 1 || agent.velocity.magnitude == 0)
         {
-            int index = Random.Range(0, targets.Count);
-            currentTarget = targets[index];
+            index = Random.Range(TargetsObj.transform.childCount-2, TargetsObj.transform.childCount-1);
+            Transform target = TargetsObj.transform.GetChild(index);
+            currentTarget = target.position;
+            agent.SetDestination(currentTarget);
+            NavMeshPath path = new NavMeshPath();
+            agent.CalculatePath(currentTarget, path);
+            if (path.status == NavMeshPathStatus.PathPartial)
+            {
+                Debug.Log("Invalid target");
+                Debug.Log(index);
+            }
         }
         
-        agent.SetDestination(currentTarget);
+        
         float mag = agent.velocity.magnitude/agent.speed;
         if(mag > 0.5f && prevMag < 0.5f)
         {

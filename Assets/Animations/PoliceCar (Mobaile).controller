@@ -9,7 +9,7 @@ AnimatorState:
   m_PrefabAsset: {fileID: 0}
   m_Name: Police-car
   m_Speed: 0.75
-  m_CycleOffset: 0.8
+  m_CycleOffset: 0
   m_Transitions: []
   m_StateMachineBehaviours: []
   m_Position: {x: 50, y: 50, z: 0}
@@ -20,7 +20,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: 0668f706f0031d641bfa1df16f917420, type: 2}
+  m_Motion: {fileID: 7400000, guid: 7edb84e5bf573074fbef1a0221410345, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
