@@ -33,6 +33,7 @@ public class ShibaController : MonoBehaviour
     [SerializeField]
     private AudioSource WalkingSound;
 
+    public GameObject TextObj;
     private void Awake()
     {
         playerinput = new ShibaControls();
@@ -57,7 +58,7 @@ public class ShibaController : MonoBehaviour
 
     void Update()
     {
-        
+        TextObj.transform.rotation = Camera.main.transform.rotation;
         groundedPlayer = controller.isGrounded;
         if (groundedPlayer && playerVelocity.y < 0)
         {
@@ -92,26 +93,11 @@ public class ShibaController : MonoBehaviour
             {
                 if (mag < 0.7)
                 {
-                    if (WalkingSound.isPlaying)
-                    {
-                        WalkingSound.Play();
-                    }
-                    if (RunningSound.isPlaying)
-                    {
-                        RunningSound.Stop();
-                    }                    
+                    PlayWalkingSound();
                 }
                 else
                 {
-                    if (WalkingSound.isPlaying)
-                    {
-                        WalkingSound.Stop();
-                    }
-                    if (!RunningSound.isPlaying)
-                    {
-                        RunningSound.Play();
-                    }
-                    
+                    PlayRunningSound();
                 }
             }
         }
@@ -149,8 +135,6 @@ public class ShibaController : MonoBehaviour
             anim.SetBool("jump", false);
         }
         
-        
-
         playerVelocity.y += gravityValue * Time.deltaTime;
         controller.Move(playerVelocity * Time.deltaTime);
 
@@ -210,6 +194,37 @@ public class ShibaController : MonoBehaviour
             GenerateCoin generator =  GameObject.Find("CoinGenerator").GetComponent<GenerateCoin>();
             generator.IncreaseScore();
             generator.UpdateScore();
+        }
+    }
+
+    void PlayWalkingSound()
+    {
+        if (!WalkingSound.isPlaying)
+        {
+            WalkingSound.Play();
+        }
+        if (RunningSound.isPlaying)
+        {
+            RunningSound.Stop();
+        }
+    }
+    void PlayRunningSound()
+    {
+        if (WalkingSound.isPlaying)
+        {
+            WalkingSound.Stop();
+        }
+        if (!RunningSound.isPlaying)
+        {
+            RunningSound.Play();
+        }
+    }
+
+    void PlayJumpSound()
+    {
+        if (!JumpingSound.isPlaying)
+        {
+            JumpingSound.Play();
         }
     }
 

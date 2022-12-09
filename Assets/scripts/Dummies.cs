@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using TMPro;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -13,6 +15,17 @@ public class Dummies : MonoBehaviour
 
     public Animator anim;
     private float prevMag = 0.0f;
+
+    private static List<string> m_namesList;
+    private TextAsset m_textAsset;
+    TextMeshPro m_text;
+
+    public GameObject TextObj;
+    private void Awake()
+    {
+        m_textAsset = Resources.Load("TextFiles/names") as TextAsset;
+        m_namesList = m_textAsset.text.Split('\n').ToList();
+    }
     void Start()
     {
         targets = new List<Vector3>();
@@ -24,10 +37,15 @@ public class Dummies : MonoBehaviour
         agent.speed = 10;
         int index = Random.Range(0, targets.Count);
         currentTarget = targets[index];
+
+        m_text = TextObj.GetComponent<TextMeshPro>();
+        m_text.text = m_namesList[Random.Range(0, m_namesList.Count)];
     }
 
     void Update()
     {
+        TextObj.transform.rotation = Camera.main.transform.rotation;
+
         distance = Vector3.Distance(transform.position, currentTarget);
         if(distance < 1 || agent.velocity.magnitude == 0)
         {

@@ -49,7 +49,7 @@ public class FixedTouchField : MonoBehaviour, IPointerDownHandler, IPointerUpHan
             TouchDist = new Vector2();
         }
         Cinemachine.m_XAxis.Value += TouchDist.x * Time.deltaTime * lookSpeed * XSenstivity;
-        Cinemachine.m_YAxis.Value += TouchDist.y * Time.deltaTime * lookSpeed * YSenstivity;
+        Cinemachine.m_YAxis.Value += -TouchDist.y * Time.deltaTime * lookSpeed * YSenstivity;
     }
 
     public void OnPointerDown(PointerEventData eventData)

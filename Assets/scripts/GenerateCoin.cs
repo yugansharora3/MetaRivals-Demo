@@ -38,12 +38,12 @@ public class GenerateCoin : MonoBehaviour
     public void Generate(GameObject Platforms)
     {
         int SelectedRoad = Random.Range(0, Platforms.transform.childCount);
-        Debug.Log("selected road = " + SelectedRoad);
+        //Debug.Log("selected road = " + SelectedRoad);
         GameObject road = Platforms.transform.GetChild(SelectedRoad).gameObject;
         Vector3 v = new(0.0f, 4.0f, 0.0f);
         int length = (int)Vector3.Scale(road.GetComponent<MeshFilter>().mesh.bounds.extents, road.transform.localScale).x;
         int offset = Random.Range(0, length);
-        Debug.Log("extents " + Vector3.Scale(road.GetComponent<MeshFilter>().mesh.bounds.extents,road.transform.localScale));
+        //Debug.Log("extents " + Vector3.Scale(road.GetComponent<MeshFilter>().mesh.bounds.extents,road.transform.localScale));
         if (road.transform.rotation.y > 0.25f || road.transform.rotation.y < -0.25f)
         {
             v.z += offset;
