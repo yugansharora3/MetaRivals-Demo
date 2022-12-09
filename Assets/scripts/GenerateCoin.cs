@@ -11,8 +11,8 @@ public class GenerateCoin : MonoBehaviour
     public GameObject InsidePlatforms;
     public GameObject OutsidePlatforms;
     public GameObject ScoreBoard;
-    int InsideCoins = 10, OutsideCoins = 10;
-    private int score = 0,TotalCoins = 0;
+    int InsideCoins = 15, OutsideCoins = 20;
+    public int score = 0,TotalCoins = 0;
 
     void Start()
     {

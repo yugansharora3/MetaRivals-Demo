@@ -34,6 +34,9 @@ public class ShibaController : MonoBehaviour
     private AudioSource WalkingSound;
 
     public GameObject TextObj;
+    public GameObject CoinGenerator;
+    public int MaxCoins = 20;
+
     private void Awake()
     {
         playerinput = new ShibaControls();
@@ -77,14 +80,15 @@ public class ShibaController : MonoBehaviour
 
         controller.Move(moveSpeed * Time.deltaTime * move);
         anim.SetFloat("moveSpeed", mag);
-        if (anim.GetFloat("moveSpeed") > 0.7 && mag < 0.7)
-        {
-            anim.SetFloat("moveSpeed", mag);
-        }
-        else if(anim.GetFloat("moveSpeed") < 0.7 && mag > 0.7)
-        {
-            anim.SetFloat("moveSpeed", mag);
-        }
+        //if (anim.GetFloat("moveSpeed") > 0.7 && mag < 0.7)
+        //{
+        //    anim.SetFloat("moveSpeed", mag);
+        //}
+        //else if(anim.GetFloat("moveSpeed") < 0.7 && mag > 0.7)
+        //{
+        //    anim.SetFloat("moveSpeed", mag);
+        //}
+
         if (move != Vector3.zero)
         {
             anim.SetBool("move", true);
@@ -175,6 +179,7 @@ public class ShibaController : MonoBehaviour
         {
             IsKicking = false;
         }
+        
         if(CoinCollected)
             CoinCollected = false;
     }
@@ -188,12 +193,15 @@ public class ShibaController : MonoBehaviour
     {
         if(hit.gameObject.tag == "Coin" && !CoinCollected)
         {
-            CoinCollected = true;
-            Debug.Log("collision with coin");
-            hit.gameObject.SetActive(false);
-            GenerateCoin generator =  GameObject.Find("CoinGenerator").GetComponent<GenerateCoin>();
-            generator.IncreaseScore();
-            generator.UpdateScore();
+            GenerateCoin generator =  CoinGenerator.GetComponent<GenerateCoin>();
+            if(generator.score < MaxCoins)
+            {
+                CoinCollected = true;
+                Debug.Log("collision with coin");
+                hit.gameObject.SetActive(false);
+                generator.IncreaseScore();
+                generator.UpdateScore();
+            }
         }
     }
 
