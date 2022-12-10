@@ -1,6 +1,8 @@
 using Cinemachine;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class FixedTouchField : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 {
@@ -16,10 +18,49 @@ public class FixedTouchField : MonoBehaviour, IPointerDownHandler, IPointerUpHan
     public bool Pressed;
     public CinemachineFreeLook Cinemachine;
 
+
+    GraphicRaycaster m_Raycaster;
+    PointerEventData m_PointerEventData;
+    EventSystem m_EventSystem;
     // Use this for initialization
     void Start()
     {
-        //cinemachine = Cinemachine.GetComponent<CinemachineFreeLook>();
+        GameObject canvas = GameObject.Find("Canvas");
+        //Fetch the Raycaster from the GameObject (the Canvas)
+        m_Raycaster = canvas.GetComponent<GraphicRaycaster>();
+        //Fetch the Event System from the Scene
+        m_EventSystem = GetComponent<EventSystem>();
+    }
+    private bool CheckIfPointIsOnUI(Vector2 position)
+    {
+        //Set up the new Pointer Event
+        m_PointerEventData = new PointerEventData(m_EventSystem);
+        //Set the Pointer Event Position to that of the mouse position
+        m_PointerEventData.position = position;
+
+        //Create a list of Raycast Results
+        List<RaycastResult> results = new List<RaycastResult>();
+
+        //Raycast using the Graphics Raycaster and mouse click position
+        m_Raycaster.Raycast(m_PointerEventData, results);
+
+        if(results.Count == 1)
+        {
+            if (results[0].gameObject.name == "Look")
+            {
+                return false;
+            }
+            else
+            { return true; }
+        }
+        else
+        {
+            if (results.Count > 0)
+                return true;
+            else
+                return false;
+        }
+        
         
     }
 
@@ -35,13 +76,27 @@ public class FixedTouchField : MonoBehaviour, IPointerDownHandler, IPointerUpHan
         {
             if (PointerId >= 0 && PointerId < Input.touches.Length)
             {
-                TouchDist = Input.touches[PointerId].position - PointerOld;
-                PointerOld = Input.touches[PointerId].position;
+                if(!CheckIfPointIsOnUI(Input.touches[PointerId].position))
+                {
+                    TouchDist = Input.touches[PointerId].position - PointerOld;
+                    PointerOld = Input.touches[PointerId].position;
+                }
             }
             else
             {
-                TouchDist = new Vector2(Input.mousePosition.x, Input.mousePosition.y) - PointerOld;
-                PointerOld = Input.mousePosition;
+                if(!CheckIfPointIsOnUI(Input.mousePosition))
+                {
+                    Vector2 temp = TouchDist;
+                    TouchDist = new Vector2(Input.mousePosition.x, Input.mousePosition.y) - PointerOld;
+                    
+                    if(TouchDist.magnitude > 100)
+                    {
+                        Debug.Log(TouchDist.magnitude);
+                        TouchDist = temp;
+                    }
+                    else
+                        PointerOld = Input.mousePosition;
+                }
             }
         }
         else
@@ -57,6 +112,7 @@ public class FixedTouchField : MonoBehaviour, IPointerDownHandler, IPointerUpHan
         Pressed = true;
         PointerId = eventData.pointerId;
         PointerOld = eventData.position;
+        //Debug.Log("Pointer down");
     }
 
 

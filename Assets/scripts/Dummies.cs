@@ -26,6 +26,7 @@ public class Dummies : MonoBehaviour
     public int index;
     public GameObject TextObj;
     public bool GoingForCoin = false;
+    private Transform target;
     private void Awake()
     {
         targets = new List<Vector3>();
@@ -54,31 +55,40 @@ public class Dummies : MonoBehaviour
         {
             SetDestination();
         }
-        if(GoingForCoin)
+        
+        if (!agent.pathPending)
         {
-            if (!agent.pathPending)
+            if (agent.remainingDistance <= agent.stoppingDistance)
             {
-                if (agent.remainingDistance <= agent.stoppingDistance)
+                if (!agent.hasPath || agent.velocity.sqrMagnitude == 0f)
                 {
-                    if (!agent.hasPath || agent.velocity.sqrMagnitude == 0f)
+                    if (GoingForCoin)
                     {
                         CoinParent.transform.GetChild(index).gameObject.SetActive(false);
                     }
+                    SetDestination();
                 }
             }
         }
-        
 
         SetAnimation();
     }
 
+    void GetActiveCoin()
+    {
+        
+    }
+
     void SetDestination()
     {
-        Transform target;
+        
         int x = Random.Range(0, 5);
         if(x > 3)
         {
-            index = Random.Range(0, CoinParent.transform.childCount);
+            while (!CoinParent.transform.GetChild(index).gameObject.activeSelf)
+            {
+                index = Random.Range(0, CoinParent.transform.childCount);
+            }
             target = CoinParent.transform.GetChild(index);
             GoingForCoin = true;
         }

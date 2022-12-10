@@ -37,6 +37,7 @@ public class ShibaController : MonoBehaviour
     public GameObject CoinGenerator;
     public int MaxCoins = 20;
 
+    //public FixedJoystick LeftJoystick;
     private void Awake()
     {
         playerinput = new ShibaControls();
