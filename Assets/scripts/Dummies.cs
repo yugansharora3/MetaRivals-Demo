@@ -27,12 +27,15 @@ public class Dummies : MonoBehaviour
     public GameObject TextObj;
     public bool GoingForCoin = false;
     private Transform target;
+
+    private List<int> CoinIndexes;
     private void Awake()
     {
         targets = new List<Vector3>();
         m_textAsset = Resources.Load("TextFiles/names") as TextAsset;
         m_namesList = m_textAsset.text.Split('\n').ToList();
         agent = GetComponent<NavMeshAgent>();
+        CoinIndexes = Enumerable.Range(0, CoinParent.transform.childCount).ToList();
     }
     void Start()
     {
@@ -74,9 +77,16 @@ public class Dummies : MonoBehaviour
         SetAnimation();
     }
 
-    void GetActiveCoin()
+    bool ReturnIfCoinIsActive()
     {
-        
+        while (!CoinParent.transform.GetChild(index).gameObject.activeSelf || CoinIndexes.Count != 0)
+        {
+            int i = Random.Range(0, CoinIndexes.Count());
+            index = CoinIndexes[i];
+        }
+        if(CoinIndexes.Count == 0)
+            return false;
+        return true;
     }
 
     void SetDestination()
@@ -85,6 +95,7 @@ public class Dummies : MonoBehaviour
         int x = Random.Range(0, 5);
         if(x > 3)
         {
+
             while (!CoinParent.transform.GetChild(index).gameObject.activeSelf)
             {
                 index = Random.Range(0, CoinParent.transform.childCount);
@@ -110,22 +121,22 @@ public class Dummies : MonoBehaviour
         }
     }
 
-    private void OnCollisionEnter(Collision hit)
-    {
-        if (hit.gameObject.tag == "Coin")
-        {
-            hit.gameObject.SetActive(false);
-            Debug.Log("Dummy collided with coin");
-        }
-    }
-    private void OnTriggerEnter(Collider hit)
-    {
-        if (hit.gameObject.tag == "Coin")
-        {
-            hit.gameObject.SetActive(false);
-            Debug.Log("Dummy collided with coin");
-        }
-    }
+    //private void OnCollisionEnter(Collision hit)
+    //{
+    //    if (hit.gameObject.tag == "Coin")
+    //    {
+    //        hit.gameObject.SetActive(false);
+    //        Debug.Log("Dummy collided with coin");
+    //    }
+    //}
+    //private void OnTriggerEnter(Collider hit)
+    //{
+    //    if (hit.gameObject.tag == "Coin")
+    //    {
+    //        hit.gameObject.SetActive(false);
+    //        Debug.Log("Dummy collided with coin");
+    //    }
+    //}
 
     void SetAnimation()
     {
