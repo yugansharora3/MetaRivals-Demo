@@ -6,19 +6,16 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using Unity.VisualScripting;
 
-public class Swipe : MonoBehaviour
+public class Swipe : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPointerExitHandler, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
     [SerializeField]
     public float lookSpeed = 2.0f, XSenstivity = 1.0f, YSenstivity = 0.01f;
     public bool OnPc = false;
-    static float t = 0.0f;
-    //private bool tap, swipeLeft, swipeRight, swipeUp, swipeDown;
     private bool isDragging;
 
     private Vector2 startTouch, swipeDelta,storedDelta;
     private bool Pressed = false;
-    private int PointerId;
-    private Vector2 PointerOld;
+    public int PointerId;
 
     GraphicRaycaster m_Raycaster;
     PointerEventData m_PointerEventData;
@@ -70,8 +67,10 @@ public class Swipe : MonoBehaviour
         }
         #endregion
 
+
         #region Mobile Inputs
-        if (Input.touches.Length > 0)
+        
+        if (Input.touches.Length > 0 && PointerId >= 0 && PointerId < Input.touches.Length)
         {
             if (Input.touches[lastTouchIndex].phase == TouchPhase.Began)
             {
@@ -93,10 +92,9 @@ public class Swipe : MonoBehaviour
         #endregion
 
         swipeDelta = Vector2.zero;
-        if (isDragging)
+        if (Pressed)
         {
-
-            if (Input.touches.Length > 0)
+            if (Input.touches.Length > 0 && PointerId >= 0 && PointerId < Input.touches.Length)
             {
                 if (CheckIfPointIsOnLook(Input.touches[lastTouchIndex].position))
                 {
@@ -105,9 +103,10 @@ public class Swipe : MonoBehaviour
             }
             else if (Input.GetMouseButton(0))
             {
-                if (CheckIfPointIsOnLook(Input.touches[lastTouchIndex].position))
+                if (CheckIfPointIsOnLook(Input.mousePosition))
                 {
                     swipeDelta = (Vector2)Input.mousePosition - startTouch;
+                    startTouch = (Vector2)Input.mousePosition;
                 }
             }
 
@@ -116,7 +115,7 @@ public class Swipe : MonoBehaviour
         cinemachine.m_XAxis.Value += swipeDelta.x * XSenstivity * lookSpeed * Time.deltaTime;
         cinemachine.m_YAxis.Value += -swipeDelta.y * YSenstivity * lookSpeed * Time.deltaTime;
 
-        if (Input.touches.Length > 0)
+        if (Input.touches.Length > 0 && PointerId >= 0 && PointerId < Input.touches.Length)
         {
             if (Input.touches[lastTouchIndex].phase == TouchPhase.Moved)
             {
@@ -155,7 +154,7 @@ public class Swipe : MonoBehaviour
             {
                 if (raycast.gameObject.name.Equals("Look"))
                 {
-                    Debug.Log("Clicked on Look");
+                    //Debug.Log("Clicked on Look");
                     return true;
                 }
             }
@@ -167,7 +166,6 @@ public class Swipe : MonoBehaviour
     {
         Pressed = true;
         PointerId = eventData.pointerId;
-        PointerOld = eventData.position;
     }
     public void OnPointerUp(PointerEventData eventData)
     {
@@ -177,4 +175,18 @@ public class Swipe : MonoBehaviour
     {
         Pressed = false;
     }
+
+    public void OnDrag(PointerEventData eventData)
+    {
+
+    }
+    public void OnBeginDrag(PointerEventData eventData)
+    {
+
+    }
+    public void OnEndDrag(PointerEventData eventData)
+    {
+
+    }
+
 }
