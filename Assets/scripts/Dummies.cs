@@ -79,27 +79,26 @@ public class Dummies : MonoBehaviour
 
     bool ReturnIfCoinIsActive()
     {
-        while (!CoinParent.transform.GetChild(index).gameObject.activeSelf || CoinIndexes.Count != 0)
+        while (CoinIndexes.Count != 0)
         {
             int i = Random.Range(0, CoinIndexes.Count());
             index = CoinIndexes[i];
+            if (!CoinParent.transform.GetChild(index).gameObject.activeSelf)
+            {
+                CoinIndexes.RemoveAt(i);
+            }
+            else
+                return true;
         }
-        if(CoinIndexes.Count == 0)
-            return false;
-        return true;
+        return false;
     }
 
     void SetDestination()
     {
         
         int x = Random.Range(0, 5);
-        if(x > 3)
+        if(x > 3 && ReturnIfCoinIsActive())
         {
-
-            while (!CoinParent.transform.GetChild(index).gameObject.activeSelf)
-            {
-                index = Random.Range(0, CoinParent.transform.childCount);
-            }
             target = CoinParent.transform.GetChild(index);
             GoingForCoin = true;
         }

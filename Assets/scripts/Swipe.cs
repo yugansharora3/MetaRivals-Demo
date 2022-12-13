@@ -9,12 +9,16 @@ using Unity.VisualScripting;
 public class Swipe : MonoBehaviour
 {
     [SerializeField]
-    private float lookSpeed = 2f;
+    public float lookSpeed = 2.0f, XSenstivity = 1.0f, YSenstivity = 0.01f;
+    public bool OnPc = false;
     static float t = 0.0f;
-    public bool tap, swipeLeft, swipeRight, swipeUp, swipeDown;
+    //private bool tap, swipeLeft, swipeRight, swipeUp, swipeDown;
     private bool isDragging;
-    public Vector2 startTouch, swipeDelta,storedDelta;
-    private GameObject[] UIElements;
+
+    private Vector2 startTouch, swipeDelta,storedDelta;
+    private bool Pressed = false;
+    private int PointerId;
+    private Vector2 PointerOld;
 
     GraphicRaycaster m_Raycaster;
     PointerEventData m_PointerEventData;
@@ -22,7 +26,7 @@ public class Swipe : MonoBehaviour
 
     public Canvas canvas;
 
-    private CinemachineFreeLook cinemachine;
+    public CinemachineFreeLook cinemachine;
     void Start()
     {
         //Fetch the Raycaster from the GameObject (the Canvas)
@@ -32,110 +36,98 @@ public class Swipe : MonoBehaviour
     }
     private void Awake()
     {
-        cinemachine = GetComponent<CinemachineFreeLook>();
+        //cinemachine = GetComponent<CinemachineFreeLook>();
         storedDelta = Vector2.zero;
     }
     // Update is called once per frame
     void Update()
     {
+        if(OnPc)
+        {
+            XSenstivity = 10f;
+            YSenstivity = 0.1f;
+        }
         //tap = swipeLeft = swipeRight = swipeUp = swipeDown = false;
 
         //int lastTouchIndex = Input.touches.Length - 1;
+        int lastTouchIndex = PointerId;
 
-        //#region Standalone Inputs
-        //if (Input.GetMouseButtonDown(0))
-        //{
-        //    if (check())
-        //    {
-        //        tap = true;
-        //        isDragging = true;
-        //        startTouch = Input.mousePosition;
-        //    }
-                
-        //}
-        //else if (Input.GetMouseButtonUp(0))
-        //{
-        //    isDragging = false;
-        //    Reset();
-        //}
-        //#endregion
+        #region Standalone Inputs
+        if (Input.GetMouseButtonDown(0))
+        {
+            if (CheckIfPointIsOnLook(Input.mousePosition))
+            {
+                //tap = true;
+                isDragging = true;
+                startTouch = Input.mousePosition;
+            }
 
-        //#region Mobile Inputs
-        //if (Input.touches.Length > 0)
-        //{
-        //    if (Input.touches[lastTouchIndex].phase == TouchPhase.Began)
-        //    {
-        //        if(!CheckIfPointIsOnUI(Input.touches[lastTouchIndex].position))
-        //        {
-        //            if(check())
-        //            {
-        //                tap = true;
-        //                isDragging = true;
-        //                startTouch = Input.touches[lastTouchIndex].position;
-        //            }
-                    
-        //        }
-                
-        //    }
-        //    else if (Input.touches[lastTouchIndex].phase == TouchPhase.Ended || Input.touches[lastTouchIndex].phase == TouchPhase.Canceled )
-        //    {
-        //        isDragging = false;
-        //        Reset();
-        //    }
-        //}
-        //#endregion
-        
-        //swipeDelta = Vector2.zero;
-        //if(isDragging)
-        //{
+        }
+        else if (Input.GetMouseButtonUp(0))
+        {
+            isDragging = false;
+            Reset();
+        }
+        #endregion
 
-        //    if (Input.touches.Length > 0)
-        //    {
-        //        if (!CheckIfPointIsOnUI(Input.touches[lastTouchIndex].position))
-        //        {
-        //            if(check())
-        //            {
-        //                swipeDelta = Input.touches[lastTouchIndex].position - startTouch;
+        #region Mobile Inputs
+        if (Input.touches.Length > 0)
+        {
+            if (Input.touches[lastTouchIndex].phase == TouchPhase.Began)
+            {
+                if (CheckIfPointIsOnLook(Input.touches[lastTouchIndex].position))
+                {
+                    //tap = true;
+                    isDragging = true;
+                    startTouch = Input.touches[lastTouchIndex].position;
 
-        //            }
-        //        }
-        //    }
-        //    else if (Input.GetMouseButton(0))
-        //    {
-        //        if (check())
-        //            swipeDelta = (Vector2)Input.mousePosition - startTouch;
-        //    }
+                }
 
-        //}
-                
-        //t += (5f * Time.deltaTime);
-        //float xval = Mathf.Lerp(0f, swipeDelta.x * 1 * lookSpeed * Time.deltaTime, t);
-        //cinemachine.m_XAxis.Value += swipeDelta.x * 1 * lookSpeed * Time.deltaTime;
-        //float yval = Mathf.Lerp(0f, -swipeDelta.y * 0.01f * lookSpeed * Time.deltaTime, t);
-        //cinemachine.m_YAxis.Value += -swipeDelta.y * 0.01f * lookSpeed * Time.deltaTime;
-        
-        
+            }
+            else if (Input.touches[lastTouchIndex].phase == TouchPhase.Ended || Input.touches[lastTouchIndex].phase == TouchPhase.Canceled)
+            {
+                isDragging = false;
+                Reset();
+            }
+        }
+        #endregion
 
-        //if (Input.touches.Length > 0)
-        //{
-        //    if (Input.touches[lastTouchIndex].phase == TouchPhase.Moved)
-        //    {
-        //        if (!CheckIfPointIsOnUI(Input.touches[lastTouchIndex].position))
-        //        {
-                    
-        //                tap = true;
-        //                isDragging = true;
-        //                startTouch = Input.touches[lastTouchIndex].position;
-                    
-        //        }
-        //    }
-        //}
+        swipeDelta = Vector2.zero;
+        if (isDragging)
+        {
 
-        //if (t > 1.0f)
-        //{
-        //    t = 0.0f;
-        //    storedDelta = Vector2.zero;
-        //}
+            if (Input.touches.Length > 0)
+            {
+                if (CheckIfPointIsOnLook(Input.touches[lastTouchIndex].position))
+                {
+                    swipeDelta = Input.touches[lastTouchIndex].position - startTouch;
+                }
+            }
+            else if (Input.GetMouseButton(0))
+            {
+                if (CheckIfPointIsOnLook(Input.touches[lastTouchIndex].position))
+                {
+                    swipeDelta = (Vector2)Input.mousePosition - startTouch;
+                }
+            }
+
+        }
+
+        cinemachine.m_XAxis.Value += swipeDelta.x * XSenstivity * lookSpeed * Time.deltaTime;
+        cinemachine.m_YAxis.Value += -swipeDelta.y * YSenstivity * lookSpeed * Time.deltaTime;
+
+        if (Input.touches.Length > 0)
+        {
+            if (Input.touches[lastTouchIndex].phase == TouchPhase.Moved)
+            {
+                if (CheckIfPointIsOnLook(Input.touches[lastTouchIndex].position))
+                {
+                    //tap = true;
+                    isDragging = true;
+                    startTouch = Input.touches[lastTouchIndex].position;
+                }
+            }
+        }
     }
 
     private void Reset()
@@ -144,7 +136,7 @@ public class Swipe : MonoBehaviour
         isDragging = false;
     }
 
-    private bool CheckIfPointIsOnUI(Vector2 position)
+    private bool CheckIfPointIsOnLook(Vector2 position)
     {
         //Set up the new Pointer Event
         m_PointerEventData = new PointerEventData(m_EventSystem);
@@ -158,17 +150,31 @@ public class Swipe : MonoBehaviour
         m_Raycaster.Raycast(m_PointerEventData, results);
 
         if (results.Count > 0)
-            return true;
+        {
+            foreach(RaycastResult raycast in results)
+            {
+                if (raycast.gameObject.name.Equals("Look"))
+                {
+                    Debug.Log("Clicked on Look");
+                    return true;
+                }
+            }
+        }
         return false;
     }
 
-
-    private bool check()
+    public void OnPointerDown(PointerEventData eventData)
     {
-        if (startTouch.x > 35 && startTouch.x < 135 && startTouch.y > 35 && startTouch.y < 135)
-        {
-            return false;
-        }
-        return true;
+        Pressed = true;
+        PointerId = eventData.pointerId;
+        PointerOld = eventData.position;
+    }
+    public void OnPointerUp(PointerEventData eventData)
+    {
+        Pressed = false;
+    }
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        Pressed = false;
     }
 }
