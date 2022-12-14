@@ -14,7 +14,7 @@ public class GenerateCoin : MonoBehaviour
     int InsideCoins = 15, OutsideCoins = 20;
     public int score = 0,TotalCoins = 0;
 
-    void Start()
+    public void Awake()
     {
         for (int i = 0; i < InsideCoins; i++)
             Generate(InsidePlatforms);

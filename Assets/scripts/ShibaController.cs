@@ -81,14 +81,6 @@ public class ShibaController : MonoBehaviour
 
         controller.Move(moveSpeed * Time.deltaTime * move);
         anim.SetFloat("moveSpeed", mag);
-        //if (anim.GetFloat("moveSpeed") > 0.7 && mag < 0.7)
-        //{
-        //    anim.SetFloat("moveSpeed", mag);
-        //}
-        //else if(anim.GetFloat("moveSpeed") < 0.7 && mag > 0.7)
-        //{
-        //    anim.SetFloat("moveSpeed", mag);
-        //}
 
         if (move != Vector3.zero)
         {
@@ -198,7 +190,7 @@ public class ShibaController : MonoBehaviour
             if(generator.score < MaxCoins)
             {
                 CoinCollected = true;
-                Debug.Log("collision with coin");
+                //Debug.Log("collision with coin");
                 hit.gameObject.SetActive(false);
                 generator.IncreaseScore();
                 generator.UpdateScore();

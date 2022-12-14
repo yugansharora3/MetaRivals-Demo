@@ -35,11 +35,12 @@ public class Dummies : MonoBehaviour
         m_textAsset = Resources.Load("TextFiles/names") as TextAsset;
         m_namesList = m_textAsset.text.Split('\n').ToList();
         agent = GetComponent<NavMeshAgent>();
-        CoinIndexes = Enumerable.Range(0, CoinParent.transform.childCount).ToList();
+        
     }
     void Start()
     {
-        for(int i = 0;i < TargetsObj.transform.childCount;i++)
+        CoinIndexes = Enumerable.Range(0, CoinParent.transform.childCount).ToList();
+        for (int i = 0;i < TargetsObj.transform.childCount;i++)
         {
             targets.Add(TargetsObj.transform.GetChild(i).transform.position);
         }
@@ -47,7 +48,7 @@ public class Dummies : MonoBehaviour
         SetDestination();
 
         m_text = TextObj.GetComponent<TextMeshPro>();
-        m_text.text = m_namesList[Random.Range(0, m_namesList.Count)];
+        m_text.text = "@" + m_namesList[Random.Range(0, m_namesList.Count)];
     }
 
     void Update()
@@ -67,7 +68,7 @@ public class Dummies : MonoBehaviour
                 {
                     if (GoingForCoin)
                     {
-                        CoinParent.transform.GetChild(index).gameObject.SetActive(false);
+                        //CoinParent.transform.GetChild(index).gameObject.SetActive(false);
                     }
                     SetDestination();
                 }
@@ -96,8 +97,8 @@ public class Dummies : MonoBehaviour
     void SetDestination()
     {
         
-        int x = Random.Range(0, 5);
-        if(x > 3 && ReturnIfCoinIsActive())
+        int x = Random.Range(0, 4);
+        if(x > 2 && ReturnIfCoinIsActive())
         {
             target = CoinParent.transform.GetChild(index);
             GoingForCoin = true;
@@ -119,7 +120,16 @@ public class Dummies : MonoBehaviour
         }
     }
 
-    //private void OnCollisionEnter(Collision hit)
+    public void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.tag == "Coin")
+        {
+            other.gameObject.SetActive(false);
+            //Debug.Log("Dummy collided with coin");
+        }
+    }
+
+    //public void OnCollisionEnter(Collision hit)
     //{
     //    if (hit.gameObject.tag == "Coin")
     //    {
