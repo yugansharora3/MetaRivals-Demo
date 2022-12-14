@@ -115,8 +115,7 @@ public class Dummies : MonoBehaviour
         agent.CalculatePath(currentTarget, path);
         if (path.status == NavMeshPathStatus.PathPartial)
         {
-            Debug.Log("Invalid target");
-            Debug.Log(index);
+            Debug.Log("Invalid target " + index + " GoingForCoin:" + GoingForCoin);
         }
     }
 
