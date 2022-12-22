@@ -11,7 +11,6 @@ public class Swipe : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IBeg
     [SerializeField]
     public float lookSpeed = 2.0f, XSenstivity = 1.0f, YSenstivity = 0.01f;
     public bool OnPc = false;
-    private bool isDragging;
 
     public Vector2 startTouch, swipeDelta;
     public bool Pressed = false;
@@ -41,71 +40,6 @@ public class Swipe : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IBeg
             YSenstivity = 0.1f;
         }
 
-        //#region Standalone Inputs
-        ////if (Input.GetMouseButtonDown(0))
-        ////{
-        ////    if (CheckIfPointIsOnLook(Input.mousePosition))
-        ////    {
-        ////        //tap = true;
-        ////        isDragging = true;
-        ////        startTouch = Input.mousePosition;
-        ////    }
-
-        ////}
-        ////else if (Input.GetMouseButtonUp(0))
-        ////{
-        ////    isDragging = false;
-        ////    Reset();
-        ////}
-        //#endregion
-
-        //#region Mobile Inputs
-        ////int lastTouchIndex = Input.touches.Length - 1;
-        ////int lastTouchIndex = PointerId;
-        ////if (Input.touches.Length > 0 && PointerId >= 0 && PointerId < Input.touches.Length)
-        ////{
-        ////    if (Input.touches[lastTouchIndex].phase == TouchPhase.Began)
-        ////    {
-        ////        if (CheckIfPointIsOnLook(Input.touches[lastTouchIndex].position))
-        ////        {
-        ////            //tap = true;
-        ////            isDragging = true;
-        ////            startTouch = Input.touches[lastTouchIndex].position;
-
-        ////        }
-
-        ////    }
-        ////    else if (Input.touches[lastTouchIndex].phase == TouchPhase.Ended || Input.touches[lastTouchIndex].phase == TouchPhase.Canceled)
-        ////    {
-        ////        isDragging = false;
-        ////        Reset();
-        ////    }
-        ////}
-        //#endregion
-
-        //#region Calculate Swipe Delta
-        ////swipeDelta = Vector2.zero;
-        ////if (Pressed)
-        ////{
-        ////    if (Input.touches.Length > 0 && PointerId >= 0 && PointerId < Input.touches.Length)
-        ////    {
-        ////        if (CheckIfPointIsOnLook(Input.touches[lastTouchIndex].position))
-        ////        {
-        ////            swipeDelta = Input.touches[lastTouchIndex].position - startTouch;
-        ////        }
-        ////    }
-        ////    else if (Input.GetMouseButton(0))
-        ////    {
-        ////        if (CheckIfPointIsOnLook(Input.mousePosition))
-        ////        {
-        ////            swipeDelta = (Vector2)Input.mousePosition - startTouch;
-        ////            startTouch = (Vector2)Input.mousePosition;
-        ////        }
-        ////    }
-
-        ////}
-        //#endregion
-
         if(Pressed)
         {
             cinemachine.m_XAxis.Value += swipeDelta.x * XSenstivity * lookSpeed * Time.deltaTime;
@@ -113,26 +47,13 @@ public class Swipe : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IBeg
         }
         
         swipeDelta = Vector2.zero;
-        //#region More Mobile Input
-        ////if (Input.touches.Length > 0 && PointerId >= 0 && PointerId < Input.touches.Length)
-        ////{
-        ////    if (Input.touches[lastTouchIndex].phase == TouchPhase.Moved)
-        ////    {
-        ////        if (CheckIfPointIsOnLook(Input.touches[lastTouchIndex].position))
-        ////        {
-        ////            //tap = true;
-        ////            isDragging = true;
-        ////            startTouch = Input.touches[lastTouchIndex].position;
-        ////        }
-        ////    }
-        ////}
-        //#endregion
+        
     }
 
     private void Reset()
     {
         startTouch = swipeDelta = Vector2.zero;
-        isDragging = false;
+        Pressed = false;
     }
 
     private bool CheckIfPointIsOnLookOnly(Vector2 position)
@@ -161,7 +82,6 @@ public class Swipe : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IBeg
 
     public void OnPointerDown(PointerEventData eventData)
     {
-        
         if (CheckIfPointIsOnLookOnly(eventData.position))
         {
             Pressed = true;
@@ -169,9 +89,9 @@ public class Swipe : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IBeg
     }
     public void OnPointerUp(PointerEventData eventData)
     {
-        Pressed = false;
         Reset();
     }
+    // Don't forget to add inheritance on class
     //public void OnPointerExit(PointerEventData eventData)
     //{
     //    Pressed = false;

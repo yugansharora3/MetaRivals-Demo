@@ -9,6 +9,8 @@ public class ManagerScript : Singleton<ManagerScript>
     public GameObject Kishu;
     public GameObject WhiteWitch;
     public GameObject Volt;
+    public GameObject CoinParent;
+    bool ScoreSubmitted = false;
 
     void Awake()
     {
@@ -66,5 +68,24 @@ public class ManagerScript : Singleton<ManagerScript>
         GameObject cinemachine = GameObject.Find("CM FreeLook");
         cinemachine.GetComponent<CinemachineFreeLook>().Follow = obj.transform;
         cinemachine.GetComponent<CinemachineFreeLook>().LookAt = obj.transform;
+    }
+
+    public bool CheckIfCoinIsActive()
+    {
+        for (int i = 0; i < CoinParent.transform.childCount; i++)
+        {
+            if(CoinParent.transform.GetChild(i).gameObject.activeSelf) return true;
+        }
+        return false;
+    }
+
+
+    private void Update()
+    {
+        if(!CheckIfCoinIsActive() && !ScoreSubmitted)
+        {
+            GetComponent<ScoreManager>().SubmitScore();
+            ScoreSubmitted = true;
+        }
     }
 }

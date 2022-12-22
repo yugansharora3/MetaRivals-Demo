@@ -34,8 +34,6 @@ public class ShibaController : MonoBehaviour
     private AudioSource WalkingSound;
 
     public GameObject TextObj;
-    public GameObject CoinGenerator;
-    public int MaxCoins = 20;
 
     //public FixedJoystick LeftJoystick;
     private void Awake()
@@ -186,14 +184,14 @@ public class ShibaController : MonoBehaviour
     {
         if(hit.gameObject.tag == "Coin" && !CoinCollected)
         {
-            GenerateCoin generator =  CoinGenerator.GetComponent<GenerateCoin>();
-            if(generator.score < MaxCoins)
+            ScoreManager scoreManager = GameObject.Find("Manager").GetComponent<ScoreManager>();
+            if(scoreManager.score < scoreManager.MaxCoins)
             {
                 CoinCollected = true;
                 //Debug.Log("collision with coin");
                 hit.gameObject.SetActive(false);
-                generator.IncreaseScore();
-                generator.UpdateScore();
+                scoreManager.IncreaseScore();
+                scoreManager.UpdateScore();
             }
         }
     }

@@ -55,7 +55,7 @@ public class Dummies : MonoBehaviour
     {
         TextObj.transform.rotation = Camera.main.transform.rotation;
         distance = Vector3.Distance(transform.position, currentTarget);
-        if(distance < 1)// || agent.velocity.magnitude == 0)
+        if(distance < 1)
         {
             SetDestination();
         }
@@ -66,10 +66,6 @@ public class Dummies : MonoBehaviour
             {
                 if (!agent.hasPath || agent.velocity.sqrMagnitude == 0f)
                 {
-                    if (GoingForCoin)
-                    {
-                        //CoinParent.transform.GetChild(index).gameObject.SetActive(false);
-                    }
                     SetDestination();
                 }
             }
@@ -96,7 +92,6 @@ public class Dummies : MonoBehaviour
 
     void SetDestination()
     {
-        
         int x = Random.Range(0, 4);
         if(x > 2 && ReturnIfCoinIsActive())
         {
@@ -112,6 +107,7 @@ public class Dummies : MonoBehaviour
         currentTarget = target.position;
         agent.SetDestination(currentTarget);
 
+        //Check if target can be reached
         NavMeshPath path = new NavMeshPath();
         agent.CalculatePath(currentTarget, path);
         if (path.status == NavMeshPathStatus.PathPartial)
@@ -128,23 +124,6 @@ public class Dummies : MonoBehaviour
             //Debug.Log("Dummy collided with coin");
         }
     }
-
-    //public void OnCollisionEnter(Collision hit)
-    //{
-    //    if (hit.gameObject.tag == "Coin")
-    //    {
-    //        hit.gameObject.SetActive(false);
-    //        Debug.Log("Dummy collided with coin");
-    //    }
-    //}
-    //private void OnTriggerEnter(Collider hit)
-    //{
-    //    if (hit.gameObject.tag == "Coin")
-    //    {
-    //        hit.gameObject.SetActive(false);
-    //        Debug.Log("Dummy collided with coin");
-    //    }
-    //}
 
     void SetAnimation()
     {
