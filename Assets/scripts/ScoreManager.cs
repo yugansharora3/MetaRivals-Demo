@@ -7,7 +7,7 @@ using PlayFab.ClientModels;
 
 public class ScoreManager : MonoBehaviour
 {
-    public GameObject ScoreBoard;
+    public GameObject ScoreBoardText;
     public int score = 0, TotalCoins = 0, MaxCoins = 20;
 
     private void Start()
@@ -16,9 +16,9 @@ public class ScoreManager : MonoBehaviour
     }
     public void UpdateScore()
     {
-        if(ScoreBoard == null)
-            ScoreBoard = GameObject.Find("Score").transform.GetChild(0).gameObject;
-        TextMeshProUGUI Text = ScoreBoard.GetComponent<TextMeshProUGUI>();
+        if(ScoreBoardText == null)
+            ScoreBoardText = GameObject.Find("Score").transform.GetChild(0).gameObject;
+        TextMeshProUGUI Text = ScoreBoardText.GetComponent<TextMeshProUGUI>();
         Text.text = "MRVL Points : " + score + "/" + MaxCoins;
     }
     public void IncreaseScore()
@@ -52,7 +52,4 @@ public class ScoreManager : MonoBehaviour
         Debug.Log("Score Submit success");
     }
 
-    private void Update()
-    {
-    }
 }

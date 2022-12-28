@@ -4,8 +4,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using PlayFab;
 using GooglePlayGames;
-using PlayFabError = PlayFab.PlayFabError;
 using TMPro;
+using PlayFabError = PlayFab.PlayFabError;
 using LoginResult = PlayFab.ClientModels.LoginResult;
 
 public class PlayfabManagar : MonoBehaviour
@@ -14,8 +14,9 @@ public class PlayfabManagar : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        LogIn();
     }
-    public void SignIn()
+    public void GoogleSignIn()
     {
         Social.localUser.Authenticate((bool success) => {
 
@@ -56,7 +57,7 @@ public class PlayfabManagar : MonoBehaviour
             CreateAccount = true
         };
         PlayFabClientAPI.LoginWithAndroidDeviceID(request,OnLoginSuccess,OnLoginFailure);
-        SignIn();
+        //SignIn();
     }
 
     void OnLoginSuccess(LoginResult result)
@@ -70,7 +71,4 @@ public class PlayfabManagar : MonoBehaviour
         Debug.Log("Login Fail");
         GoogleStatusText.text = "Login Fail";
     }
-    
-
-    
 }
