@@ -9,6 +9,7 @@ public class Leaderboard : MonoBehaviour
 {
     public GameObject EntryPrefab;
     public Transform Table;
+    public GameObject PlayerStats;
     public void UpdateLeaderboard()
     {
         var request = new GetLeaderboardRequest
@@ -18,6 +19,13 @@ public class Leaderboard : MonoBehaviour
             MaxResultsCount = 10
         };
         PlayFabClientAPI.GetLeaderboard(request, OnLeaderboard, OnLeaderboardError);
+
+        var PlayerRequest = new GetLeaderboardAroundPlayerRequest
+        {
+            StatisticName = "Scoreboard",
+            MaxResultsCount = 1
+        };
+        PlayFabClientAPI.GetLeaderboardAroundPlayer(PlayerRequest, OnLeaderboardAroundPlayer, OnLeaderboardError);
     }
 
     public void OnLeaderboard(GetLeaderboardResult result)
@@ -35,6 +43,17 @@ public class Leaderboard : MonoBehaviour
             texts[2].text = item.StatValue.ToString();
         }
     }
+    public void OnLeaderboardAroundPlayer(GetLeaderboardAroundPlayerResult result)
+    {
+        foreach(var item in result.Leaderboard)
+        {
+            TextMeshProUGUI[] texts = PlayerStats.GetComponentsInChildren<TextMeshProUGUI>();
+            texts[0].text = (item.Position + 1).ToString();
+            texts[1].text = item.PlayFabId;
+            texts[2].text = item.StatValue.ToString();
+        }
+    }
+
     public void OnLeaderboardError(PlayFabError error)
     {
         Debug.Log("Leaderboard Error " + error.ToString());
