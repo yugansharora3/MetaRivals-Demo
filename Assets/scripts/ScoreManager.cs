@@ -19,7 +19,7 @@ public class ScoreManager : MonoBehaviour
         if(ScoreBoardText == null)
             ScoreBoardText = GameObject.Find("Score").transform.GetChild(0).gameObject;
         TextMeshProUGUI Text = ScoreBoardText.GetComponent<TextMeshProUGUI>();
-        Text.text = "MRVL Points : " + score + "/" + MaxCoins;
+        Text.text = score + " POINTS";
     }
     public void IncreaseScore()
     {

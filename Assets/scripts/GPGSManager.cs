@@ -13,11 +13,11 @@ public class GPGSManager : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
-        clientConfiguration = new PlayGamesClientConfiguration.Builder()
-            .AddOauthScope("profile")
-            .RequestServerAuthCode(false)
-            .Build();
-        SignInGPGS(SignInInteractivity.CanPromptOnce,clientConfiguration);
+        //clientConfiguration = new PlayGamesClientConfiguration.Builder()
+        //    .AddOauthScope("profile")
+        //    .RequestServerAuthCode(false)
+        //    .Build();
+        //SignInGPGS(SignInInteractivity.CanPromptOnce,clientConfiguration);
     }
     internal void SignInGPGS(SignInInteractivity interactivity,PlayGamesClientConfiguration configuration)
     {
@@ -57,9 +57,4 @@ public class GPGSManager : MonoBehaviour
         Statustext.text = "Signed out from " + Social.localUser.userName;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }
