@@ -10,4 +10,20 @@ public class OnPlay : MonoBehaviour
     public Sprite UnSelected;
     [SerializeField]
     public AudioSource TapSound;
+
+    public void onClick()
+    {
+        TapSound.Play();
+    }
+
+    public void Play()
+    {
+        string objname = PlayerPrefs.GetString("Chosen-Character");
+        TapSound.Play();
+        if (objname != null && objname != "")
+        {
+            
+            SceneManager.LoadScene("walking");
+        }
+    }
 }

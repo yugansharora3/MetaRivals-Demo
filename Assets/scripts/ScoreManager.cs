@@ -39,6 +39,24 @@ public class ScoreManager : MonoBehaviour
             }
         };
         PlayFabClientAPI.UpdatePlayerStatistics(request, OnScoreSubmitSuccess, OnError);
+
+        int TotalCoinsCollected = GetComponent<ManagerScript>().data.TotalCoinsCollected;
+
+        var datarequest = new UpdateUserDataRequest
+        {
+            Data = new Dictionary<string, string>
+            {
+                {"Total Coins Collected", (score + TotalCoinsCollected).ToString() }
+            }
+        };
+        PlayFabClientAPI.UpdateUserData(datarequest, (result) =>
+        {
+            Debug.Log(result);
+        }, (error) =>
+        {
+            Debug.Log(error);
+            Debug.Log("Updating Total Coins data failed");
+        });
     }
 
     void OnError(PlayFabError error)

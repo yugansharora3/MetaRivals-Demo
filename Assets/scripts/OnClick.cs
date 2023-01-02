@@ -6,7 +6,7 @@ public class OnClick : MonoBehaviour
 {
     [SerializeField]
     public AudioSource TapSound;
-    static string objname = null;
+    public static string objname = null;
     private string Ape = "ape", Shiba = "shiba", Kishu = "kishu", WhiteWitch = "whiteWitch",volt = "volt";
     public void OnSelect()
     {
@@ -63,14 +63,8 @@ public class OnClick : MonoBehaviour
             Image playButtonImage = playButton.transform.GetChild(0).gameObject.GetComponent<Image>();
             playButtonImage.sprite = playButton.GetComponent<OnPlay>().UnSelected;
         }
+        PlayerPrefs.SetString("Chosen-Character", objname);
+        Debug.Log(PlayerPrefs.GetString("Chosen-Character"));
     }
-    public void Play()
-    {
-        TapSound.Play();
-        if (objname != null)
-        {
-            PlayerPrefs.SetString("Chosen-Character", objname);
-            SceneManager.LoadScene("walking");
-        }
-    }
+    
 }

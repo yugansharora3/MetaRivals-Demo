@@ -9,39 +9,44 @@ using TMPro;
 public class GPGSManager : MonoBehaviour
 {
     PlayGamesClientConfiguration clientConfiguration;
-    public TextMeshProUGUI Statustext;
+    public TextMeshProUGUI StatusText;
     // Start is called before the first frame update
     void Awake()
     {
-        //clientConfiguration = new PlayGamesClientConfiguration.Builder()
-        //    .AddOauthScope("profile")
-        //    .RequestServerAuthCode(false)
-        //    .Build();
-        //SignInGPGS(SignInInteractivity.CanPromptOnce,clientConfiguration);
+        clientConfiguration = new PlayGamesClientConfiguration.Builder()
+            .AddOauthScope("profile")
+            .RequestServerAuthCode(false)
+            .Build();
+        SignInGPGS(SignInInteractivity.CanPromptAlways, clientConfiguration);
+        Debug.Log("LOL");
+        if (GetComponent<PlayfabManagar>() == null)
+            Debug.Log("null");
+        else
+            GetComponent<PlayfabManagar>().LogIn();
     }
     internal void SignInGPGS(SignInInteractivity interactivity,PlayGamesClientConfiguration configuration)
     {
         configuration = clientConfiguration;
-        Statustext.text = "Sign in started";
+        StatusText.text = "Sign in started";
         PlayGamesPlatform.InitializeInstance(configuration);
         // recommended for debugging:
         PlayGamesPlatform.DebugLogEnabled = true;
-        Statustext.text = "Initialized";
+        StatusText.text = "Initialized";
         PlayGamesPlatform.Activate();
-        Statustext.text = "Activated";
+        StatusText.text = "Activated";
         PlayGamesPlatform.Instance.Authenticate((code,message) =>
         {
             Debug.Log("Authenticate...");
-            Statustext.text = "Authenticate...";
+            StatusText.text = "Authenticate...";
             if (code)// == SignInStatus.Success)
             {
-                Statustext.text = "Successfully Authenticated " + Social.localUser.userName;
+                StatusText.text = "Successfully Authenticated " + Social.localUser.userName;
                 Debug.Log("Successfully Authenticated");
                 Debug.Log(Social.localUser.userName);
             }
             else
             {
-                Statustext.text = "Failed to authenticate" + code.ToString() + message;
+                StatusText.text = "Failed to authenticate" + code.ToString() + message;
                 Debug.Log("Failed to authenticate");
             }
         });
@@ -54,7 +59,7 @@ public class GPGSManager : MonoBehaviour
     public void SignOut()
     {
         PlayGamesPlatform.Instance.SignOut();
-        Statustext.text = "Signed out from " + Social.localUser.userName;
+        StatusText.text = "Signed out from " + Social.localUser.userName;
     }
 
 }

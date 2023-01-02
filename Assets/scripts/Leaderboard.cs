@@ -39,7 +39,10 @@ public class Leaderboard : MonoBehaviour
             GameObject newGo = Instantiate(EntryPrefab, Table);
             TextMeshProUGUI[] texts = newGo.GetComponentsInChildren<TextMeshProUGUI>();
             texts[0].text = (item.Position + 1).ToString();
-            texts[1].text = item.PlayFabId;
+            if(item.DisplayName != null)
+                texts[1].text = item.DisplayName;
+            else
+                texts[1].text = item.PlayFabId;
             texts[2].text = item.StatValue.ToString();
         }
     }
@@ -49,7 +52,10 @@ public class Leaderboard : MonoBehaviour
         {
             TextMeshProUGUI[] texts = PlayerStats.GetComponentsInChildren<TextMeshProUGUI>();
             texts[0].text = (item.Position + 1).ToString();
-            texts[1].text = item.PlayFabId;
+            if(item.DisplayName != null)
+                texts[1].text = item.DisplayName;
+            else
+                texts[1].text = item.PlayFabId;
             texts[2].text = item.StatValue.ToString();
         }
     }
