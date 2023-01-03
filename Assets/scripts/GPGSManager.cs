@@ -15,7 +15,9 @@ public class GPGSManager : MonoBehaviour
     {
         clientConfiguration = new PlayGamesClientConfiguration.Builder()
             .AddOauthScope("profile")
+            .RequestEmail()
             .RequestServerAuthCode(false)
+            .AddOauthScope("email")
             .Build();
         SignInGPGS(SignInInteractivity.CanPromptAlways, clientConfiguration);
         Debug.Log("LOL");
@@ -27,11 +29,9 @@ public class GPGSManager : MonoBehaviour
     internal void SignInGPGS(SignInInteractivity interactivity,PlayGamesClientConfiguration configuration)
     {
         configuration = clientConfiguration;
-        StatusText.text = "Sign in started";
         PlayGamesPlatform.InitializeInstance(configuration);
         // recommended for debugging:
         PlayGamesPlatform.DebugLogEnabled = true;
-        StatusText.text = "Initialized";
         PlayGamesPlatform.Activate();
         StatusText.text = "Activated";
         PlayGamesPlatform.Instance.Authenticate((code,message) =>

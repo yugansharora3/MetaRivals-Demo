@@ -11,6 +11,7 @@ using LoginResult = PlayFab.ClientModels.LoginResult;
 public class PlayfabManagar : MonoBehaviour
 {
     public TextMeshProUGUI GoogleStatusText;
+    public Player data;
     // Start is called before the first frame update
     void Start()
     {
@@ -57,18 +58,19 @@ public class PlayfabManagar : MonoBehaviour
         {
             PlayerPrefs.SetString("UserName", result.InfoResultPayload.PlayerProfile.DisplayName);
         }
+        
         var datarequest = new UpdateUserDataRequest
         {
             Data = new Dictionary<string, string>
             {
-                {"gmail id", ((PlayGamesLocalUser)Social.localUser).Email }
+                {"gmail id", ((PlayGamesLocalUser)PlayGamesPlatform.Instance.localUser).Email }
             }
         };
-
-        Debug.Log(((PlayGamesLocalUser)PlayGamesPlatform.Instance.localUser).Email);
-
-        Debug.Log("<color=red>Error: </color>" + ((PlayGamesLocalUser)Social.localUser).Email);
-        Debug.Log("<color=red>Error: </color>" + ((PlayGamesLocalUser)Social.localUser).AvatarURL);
+        if (data.GamesPlayed != 0)
+        {
+            datarequest.Data.Add("Games Played", data.GamesPlayed.ToString());
+            datarequest.Data.Add("Total Coins Collected", data.TotalCoinsCollected.ToString());
+        }
         PlayFabClientAPI.UpdateUserData(datarequest, (result) =>
         {
             Debug.Log(result.ToString());
@@ -97,7 +99,7 @@ public class PlayfabManagar : MonoBehaviour
             }
         };
         PlayFabClientAPI.LoginWithAndroidDeviceID(request,OnLoginSuccess,OnLoginFailure);
-        GoogleSignInWithPlayfab();
+        
     }
 
     void OnLoginSuccess(LoginResult result)
@@ -108,7 +110,9 @@ public class PlayfabManagar : MonoBehaviour
         {
             PlayerPrefs.SetString("UserName", result.InfoResultPayload.PlayerProfile.DisplayName);
         }
-
+        GoogleSignInWithPlayfab();
+        ////Get the player data to check if this device
+        //GetPlayerData();
     }
     void OnLoginFailure(PlayFabError error)
     {

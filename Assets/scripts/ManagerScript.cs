@@ -8,6 +8,12 @@ using UnityEditor;
 using System.Collections.Generic;
 using UnityEngine.SocialPlatforms.Impl;
 
+public struct Player
+{
+    public int GamesPlayed, TotalCoinsCollected;
+    public string Username;
+}
+
 public class ManagerScript : Singleton<ManagerScript>
 {//Singleton<ManagerScript>
     public GameObject Ape;
