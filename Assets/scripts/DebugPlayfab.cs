@@ -15,7 +15,10 @@ public class DebugPlayfab : MonoBehaviour
         if(!PlayFabClientAPI.IsClientLoggedIn())
             LogIn();
     }
-
+    private void Start()
+    {
+        
+    }
     public void LogIn()
     {
         var request = new LoginWithAndroidDeviceIDRequest

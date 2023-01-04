@@ -26,6 +26,10 @@ public class GPGSManager : MonoBehaviour
         else
             GetComponent<PlayfabManagar>().LogIn();
     }
+    public void Start()
+    {
+        
+    }
     internal void SignInGPGS(SignInInteractivity interactivity,PlayGamesClientConfiguration configuration)
     {
         configuration = clientConfiguration;

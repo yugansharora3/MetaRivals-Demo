@@ -6,9 +6,6 @@ public class LightManager : MonoBehaviour
 {
     [SerializeField]
     GameObject light1, light2;
-    
-    [SerializeField]
-    Light light3;
 
     [SerializeField]
     GameObject SpotLight;
@@ -37,14 +34,10 @@ public class LightManager : MonoBehaviour
         WhiteWitchpos.z += 2f;
         Voltpos.y += 20f;
 
-        light3.intensity = 1f;
-        light1.SetActive(true);
-        light2.SetActive(true);
-        SpotLight.SetActive(false);
+        unchange();
     }
     public void change(string name)
     {
-        light3.intensity = 0.5f;
         light1.SetActive(false);
         light2.SetActive(false);
         SpotLight.SetActive(true);
@@ -88,7 +81,6 @@ public class LightManager : MonoBehaviour
 
     public void unchange()
     {
-        light3.intensity = 1f;
         light1.SetActive(true);
         light2.SetActive(true);
         SpotLight.SetActive(false);
