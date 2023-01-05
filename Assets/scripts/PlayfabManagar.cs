@@ -2,6 +2,7 @@ using PlayFab.ClientModels;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEditor;
 using PlayFab;
 using GooglePlayGames;
 using TMPro;
@@ -16,39 +17,50 @@ public class PlayfabManagar : MonoBehaviour
     void Start()
     {
         //LogIn();
-    }
+    } 
     public void GoogleSignInWithPlayfab()
     {
         Debug.Log("GoogleSignInWithPlayfab called");
-        Social.localUser.Authenticate((bool success) => 
+        if(PlayGamesPlatform.Instance.IsAuthenticated())
         {
-            if (success)
+            Social.localUser.Authenticate((bool success) =>
             {
-                GoogleStatusText.text = "Google Signed In";
-                var serverAuthCode = PlayGamesPlatform.Instance.GetServerAuthCode();
-                GoogleStatusText.text = "Server Auth Code: " + serverAuthCode;
-                Debug.Log("Server Auth Code: " + serverAuthCode);
-
-                var request = new LoginWithGoogleAccountRequest()
+                if (success)
                 {
-                    TitleId = PlayFabSettings.TitleId,
-                    ServerAuthCode = serverAuthCode,
-                    CreateAccount = true,
-                    InfoRequestParameters = new GetPlayerCombinedInfoRequestParams()
+                    GoogleStatusText.text = "Google Signed In";
+                    var serverAuthCode = PlayGamesPlatform.Instance.GetServerAuthCode();
+                    GoogleStatusText.text = "Server Auth Code: " + serverAuthCode;
+                    Debug.Log("Server Auth Code: " + serverAuthCode);
+
+                    var request = new LoginWithGoogleAccountRequest()
                     {
-                        GetPlayerProfile = true
-                    }
-                };
+                        TitleId = PlayFabSettings.TitleId,
+                        ServerAuthCode = serverAuthCode,
+                        CreateAccount = true,
+                        InfoRequestParameters = new GetPlayerCombinedInfoRequestParams()
+                        {
+                            GetPlayerProfile = true
+                        }
+                    };
 
-                PlayFabClientAPI.LoginWithGoogleAccount(request, OnPlayfabGoogleLoginSuccess, OnPlayfabGoogleLoginError);
-            }
-            else
+                    PlayFabClientAPI.LoginWithGoogleAccount(request, OnPlayfabGoogleLoginSuccess, OnPlayfabGoogleLoginError);
+                }
+                else
+                {
+                    GoogleStatusText.text = "Google Failed to Authorize your login";
+                }
+
+            });
+        }
+        else
+        {
+            bool value = EditorUtility.DisplayDialog("Play", "Google Play Games Sign in failed \n Ensure that you have google play games on your device", "Exit");
+            if(value)
             {
-                GoogleStatusText.text = "Google Failed to Authorize your login";
+                //Exit the game 
+                Application.Quit();
             }
-
-        });
-
+        }
     }
     void OnPlayfabGoogleLoginSuccess(LoginResult result)
     {

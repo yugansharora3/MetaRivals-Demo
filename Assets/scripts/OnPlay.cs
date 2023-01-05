@@ -22,7 +22,6 @@ public class OnPlay : MonoBehaviour
         TapSound.Play();
         if (objname != null && objname != "")
         {
-            
             SceneManager.LoadScene("walking");
         }
     }

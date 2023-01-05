@@ -16,6 +16,7 @@ public class OnClick : MonoBehaviour
 
     private void Start()
     {
+        PlayerPrefs.SetString("Chosen-Character","");
         animators = new List<Animator>();
         foreach(GameObject item in AnimatorObjects)
         {
