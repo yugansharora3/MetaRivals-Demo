@@ -13,6 +13,7 @@ public class OnClick : MonoBehaviour
     public GameObject playButton;
     public GameObject[] AnimatorObjects;
     private List<Animator> animators;
+    public UpdateStat StatUpdater;
 
     private void Start()
     {
@@ -77,6 +78,7 @@ public class OnClick : MonoBehaviour
             Image playButtonImage = playButton.transform.GetChild(0).gameObject.GetComponent<Image>();
             playButtonImage.sprite = playButton.GetComponent<OnPlay>().Selected;
             SetName(obj.name);
+            StatUpdater.Set(obj.name);
         }
         else
         {

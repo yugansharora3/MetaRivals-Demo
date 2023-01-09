@@ -11,4 +11,10 @@ public class QuitButton : MonoBehaviour
         Application.Quit();
         Popup.SetBool("Pop", false);
     }
+    public void OnlyQuit()
+    {
+        Debug.Log("Quit");
+        Application.Quit();
+    }
+
 }
