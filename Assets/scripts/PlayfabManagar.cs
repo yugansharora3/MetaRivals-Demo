@@ -13,6 +13,7 @@ public class PlayfabManagar : MonoBehaviour
 {
     public TextMeshProUGUI GoogleStatusText;
     public Player data;
+    public Animator PopUpWindowAnim;
     // Start is called before the first frame update
     void Start()
     {
@@ -54,12 +55,13 @@ public class PlayfabManagar : MonoBehaviour
         }
         else
         {
-            bool value = EditorUtility.DisplayDialog("Play", "Google Play Games Sign in failed \n Ensure that you have google play games on your device", "Exit");
-            if(value)
-            {
-                //Exit the game 
-                Application.Quit();
-            }
+            PopUpWindowAnim.SetBool("Pop",true);
+            //bool value = EditorUtility.DisplayDialog("Play", "Google Play Games Sign in failed \n Ensure that you have google play games on your device", "Exit");
+            //if(value)
+            //{
+            //    //Exit the game 
+            //    Application.Quit();
+            //}
         }
     }
     void OnPlayfabGoogleLoginSuccess(LoginResult result)

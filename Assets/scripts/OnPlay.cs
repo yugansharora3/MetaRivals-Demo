@@ -11,10 +11,6 @@ public class OnPlay : MonoBehaviour
     [SerializeField]
     public AudioSource TapSound;
 
-    public void onClick()
-    {
-        TapSound.Play();
-    }
 
     public void Play()
     {
