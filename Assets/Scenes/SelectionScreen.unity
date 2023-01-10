@@ -713,7 +713,7 @@ RectTransform:
   m_Children:
   - {fileID: 1845301552}
   m_Father: {fileID: 6591208733678571772}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -2436,7 +2436,7 @@ RectTransform:
   m_Children:
   - {fileID: 88669548}
   m_Father: {fileID: 6591208733678571772}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -4828,7 +4828,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1474931982}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -4944,7 +4944,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TapSound: {fileID: 1342098444}
-  playButton: {fileID: 0}
+  playButton: {fileID: 68990924}
   AnimatorObjects:
   - {fileID: 1359128521}
   - {fileID: 1474931981}
@@ -5444,14 +5444,13 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 6591208732403772551}
   - {fileID: 6591208733972753525}
   - {fileID: 6591208733211191618}
   - {fileID: 6591208733242612857}
   - {fileID: 6591208733332818998}
   - {fileID: 1342098443}
   m_Father: {fileID: 6591208733678571772}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -14819,7 +14818,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "White Witch \nRival"
+  m_text: Name
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: d20f63c9caf0d514dbed31dab759b8c7, type: 2}
   m_sharedMaterial: {fileID: 7754216030271607140, guid: d20f63c9caf0d514dbed31dab759b8c7, type: 2}
@@ -24772,11 +24771,11 @@ RectTransform:
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 6591208733678571772}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -22.380005, y: -10.450012}
+  m_AnchoredPosition: {x: -22.379883, y: -10.449951}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 1, y: 1}
 --- !u!1 &2498940487618656709
@@ -29285,7 +29284,7 @@ RectTransform:
   - {fileID: 3140308546463679007}
   - {fileID: 182093657}
   m_Father: {fileID: 6591208733678571772}
-  m_RootOrder: 3
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -55193,7 +55192,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1474931982}
+  m_Father: {fileID: 6591208733678571772}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -55355,7 +55354,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1474931982}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -55612,7 +55611,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TapSound: {fileID: 6591208733211191624}
-  playButton: {fileID: 0}
+  playButton: {fileID: 68990924}
   AnimatorObjects:
   - {fileID: 1359128521}
   - {fileID: 1474931981}
@@ -55641,7 +55640,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TapSound: {fileID: 6591208733242612743}
-  playButton: {fileID: 0}
+  playButton: {fileID: 68990924}
   AnimatorObjects:
   - {fileID: 1359128521}
   - {fileID: 1474931981}
@@ -55847,7 +55846,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1474931982}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
@@ -55927,7 +55926,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TapSound: {fileID: 6591208733332819004}
-  playButton: {fileID: 0}
+  playButton: {fileID: 68990924}
   AnimatorObjects:
   - {fileID: 1359128521}
   - {fileID: 1474931981}
@@ -56067,7 +56066,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1474931982}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -56271,11 +56270,12 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 6591208732403772551}
   - {fileID: 189347657}
   - {fileID: 1474931982}
   - {fileID: 699688558}
-  - {fileID: 3140308546721142615}
   - {fileID: 1737415720}
+  - {fileID: 3140308546721142615}
   - {fileID: 2491519461636513337}
   m_Father: {fileID: 0}
   m_RootOrder: 1
@@ -56341,7 +56341,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TapSound: {fileID: 6591208733972753523}
-  playButton: {fileID: 0}
+  playButton: {fileID: 68990924}
   AnimatorObjects:
   - {fileID: 1359128521}
   - {fileID: 1474931981}
@@ -56547,7 +56547,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1474931982}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
@@ -67647,7 +67647,7 @@ Animator:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7896563708806946190}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: c454080d636f840038dc8f37941751b3, type: 2}
   m_CullingMode: 0
@@ -67825,8 +67825,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5484d9a92f0b80d43b268573564b8f55, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Selected: {fileID: 0}
-  UnSelected: {fileID: 0}
   TapSound: {fileID: 7896563708806946191}
 --- !u!114 &7896563708806946193
 MonoBehaviour:

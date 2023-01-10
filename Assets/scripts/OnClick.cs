@@ -75,16 +75,16 @@ public class OnClick : MonoBehaviour
         //GameObject playButton = GameObject.Find("Canvas1").transform.GetChild(5).gameObject;
         if (obj.name != "BackGround-Button")
         {
-            Image playButtonImage = playButton.transform.GetChild(0).gameObject.GetComponent<Image>();
-            playButtonImage.sprite = playButton.GetComponent<OnPlay>().Selected;
+            //Image playButtonImage = playButton.transform.GetChild(0).gameObject.GetComponent<Image>();
+            //playButtonImage.sprite = playButton.GetComponent<OnPlay>().Selected;
             SetName(obj.name);
             StatUpdater.Set(obj.name);
         }
         else
         {
             objname = null;
-            Image playButtonImage = playButton.transform.GetChild(0).gameObject.GetComponent<Image>();
-            playButtonImage.sprite = playButton.GetComponent<OnPlay>().UnSelected;
+            //Image playButtonImage = playButton.transform.GetChild(0).gameObject.GetComponent<Image>();
+            //playButtonImage.sprite = playButton.GetComponent<OnPlay>().UnSelected;
         }
         PlayerPrefs.SetString("Chosen-Character", objname);
     }
