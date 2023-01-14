@@ -14,6 +14,7 @@ public class FighterController : MonoBehaviour
     private bool groundedPlayer;
     private bool IsPunching = false;
     private bool IsKicking = false;
+    private Vector2 forward;
     bool CoinCollected = false;
 
     [SerializeField]
@@ -30,6 +31,7 @@ public class FighterController : MonoBehaviour
     private AudioSource PunchingSound;
     private void Awake()
     {
+        forward = transform.forward;
         anim = GetComponent<Animator>();
         playerinput = new ShibaControls();
         controller = GetComponent<CharacterController>();
@@ -60,7 +62,8 @@ public class FighterController : MonoBehaviour
         }
 
         Vector2 movementInput = playerinput.PlayerMain.Move.ReadValue<Vector2>();
-        Vector3 move = cameraMain.forward * movementInput.y + cameraMain.right * movementInput.x;
+        Vector3 move = forward * movementInput.x;
+        anim.SetFloat("height",movementInput.y);
         move.y = 0f;
         float mag = Vector3.Magnitude(move);
         float moveSpeed;
@@ -69,17 +72,18 @@ public class FighterController : MonoBehaviour
         else
             moveSpeed = playerSpeed;
 
-        controller.Move(moveSpeed * Time.deltaTime * move);
+        transform.position += moveSpeed * Time.deltaTime * move;
+        //controller.Move(moveSpeed * Time.deltaTime * move);
         anim.SetFloat("moveSpeed", mag);
 
         if (move != Vector3.zero)
         {
-            anim.SetBool("move", true);
+            //anim.SetBool("move", true);
             gameObject.transform.forward = move;
         }
         else
         {
-            anim.SetBool("move", false);
+            //anim.SetBool("move", false);
         }
         
         if (playerinput.PlayerMain.Jump.triggered && groundedPlayer)
@@ -95,10 +99,11 @@ public class FighterController : MonoBehaviour
             anim.SetBool("jump", false);
         }
         
-        playerVelocity.y += gravityValue * Time.deltaTime;
-        controller.Move(playerVelocity * Time.deltaTime);
+        //playerVelocity.y += gravityValue * Time.deltaTime;
+        //controller.Move(playerVelocity * Time.deltaTime);
+        //transform.position += playerVelocity * Time.deltaTime;
 
-        if(playerinput.PlayerMain.Punch.triggered && !IsPunching)
+        if (playerinput.PlayerMain.Punch.triggered && !IsPunching)
         {
             IsPunching = true;
             anim.SetTrigger("Punching");
