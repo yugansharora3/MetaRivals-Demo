@@ -670,7 +670,7 @@ BlendTree:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: BlendTree
+  m_Name: Attack
   m_Childs:
   - serializedVersion: 2
     m_Motion: {fileID: 7400000, guid: 14bc1ec756db6de45b958f282d140d03, type: 2}
@@ -709,10 +709,10 @@ BlendTree:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: BlendTree
+  m_Name: Defend
   m_Childs:
   - serializedVersion: 2
-    m_Motion: {fileID: 7400000, guid: 61c001da583574d47bf708e567f8e288, type: 2}
+    m_Motion: {fileID: 7400000, guid: 2c2412a0e2fb3544bbe5424b7333788b, type: 2}
     m_Threshold: -1
     m_Position: {x: 0, y: 0}
     m_TimeScale: 1
@@ -728,7 +728,7 @@ BlendTree:
     m_DirectBlendParameter: moveSpeed
     m_Mirror: 0
   - serializedVersion: 2
-    m_Motion: {fileID: 7400000, guid: 61c001da583574d47bf708e567f8e288, type: 2}
+    m_Motion: {fileID: 7400000, guid: 2c2412a0e2fb3544bbe5424b7333788b, type: 2}
     m_Threshold: 1
     m_Position: {x: 0, y: 0}
     m_TimeScale: 1
@@ -858,6 +858,14 @@ BlendTree:
   m_Name: AttackDefendPunch
   m_Childs:
   - serializedVersion: 2
+    m_Motion: {fileID: 294544809433448745}
+    m_Threshold: -1
+    m_Position: {x: 0, y: 0}
+    m_TimeScale: 1
+    m_CycleOffset: 0
+    m_DirectBlendParameter: moveSpeed
+    m_Mirror: 0
+  - serializedVersion: 2
     m_Motion: {fileID: 262644824679024086}
     m_Threshold: 0
     m_Position: {x: 0, y: 0}
@@ -865,19 +873,11 @@ BlendTree:
     m_CycleOffset: 0
     m_DirectBlendParameter: moveSpeed
     m_Mirror: 0
-  - serializedVersion: 2
-    m_Motion: {fileID: 294544809433448745}
-    m_Threshold: 1
-    m_Position: {x: 0, y: 0}
-    m_TimeScale: 1
-    m_CycleOffset: 0
-    m_DirectBlendParameter: moveSpeed
-    m_Mirror: 0
   m_BlendParameter: AttackDefend
   m_BlendParameterY: moveSpeed
-  m_MinThreshold: 0
-  m_MaxThreshold: 1
-  m_UseAutomaticThresholds: 1
+  m_MinThreshold: -1
+  m_MaxThreshold: 0
+  m_UseAutomaticThresholds: 0
   m_NormalizedBlendValues: 0
   m_BlendType: 0
 --- !u!1102 &4025090592478185998

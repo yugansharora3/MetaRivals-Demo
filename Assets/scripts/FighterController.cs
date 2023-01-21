@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static UnityEditorInternal.ReorderableList;
 
 public class FighterController : MonoBehaviour
 {
@@ -20,6 +19,7 @@ public class FighterController : MonoBehaviour
     private bool IsMoving = false;
     private Vector2 forward;
     bool CanChangeHeight = true;
+    bool CanChangeAttackDefend = true;
 
     [SerializeField]
     private float playerSpeed = 25.0f;
@@ -57,11 +57,10 @@ public class FighterController : MonoBehaviour
 
     void Update()
     {
-        //groundedPlayer = controller.isGrounded;
-        if (groundedPlayer && playerVelocity.y < 0)
-        {
-            playerVelocity.y = 0f;
-        }
+        //if (playerVelocity.y < 0)
+        //{
+        //    playerVelocity.y = 0f;
+        //}
 
         Vector2 movementInput = playerinput.PlayerMain.Move.ReadValue<Vector2>();
 
@@ -69,7 +68,12 @@ public class FighterController : MonoBehaviour
         {
             anim.SetFloat("height",movementInput.y);
         }
-
+        anim.SetFloat("moveSpeed", movementInput.x);
+        if(CanChangeAttackDefend)
+        {
+            anim.SetFloat("AttackDefend", movementInput.x);
+        }
+        
         Vector3 move = forward * movementInput.x;
         move.y = 0f;
         float mag = Vector3.Magnitude(move);
@@ -80,8 +84,7 @@ public class FighterController : MonoBehaviour
             moveSpeed = playerSpeed;
 
         transform.position += moveSpeed * Time.deltaTime * move * 0.1f;
-        //controller.Move(moveSpeed * Time.deltaTime * move);
-        anim.SetFloat("moveSpeed", movementInput.x);
+        
         if (movementInput.x == 0 && !IsMoving)
         {
             if(!IsIdle)
@@ -125,17 +128,13 @@ public class FighterController : MonoBehaviour
         {
             anim.SetBool("jump", false);
         }
-        
-        //playerVelocity.y += gravityValue * Time.deltaTime;
-        //controller.Move(playerVelocity * Time.deltaTime);
-        //transform.position += playerVelocity * Time.deltaTime;
-
         if (playerinput.PlayerMain.Punch.triggered && !IsPunching)
         {
             IsPunching = true;
             anim.SetTrigger("Punching");
             PunchingSound.Play();
             CanChangeHeight = false;
+            CanChangeAttackDefend = false;
         }
 
         if (playerinput.PlayerMain.Kick.triggered && !IsKicking)
@@ -144,6 +143,7 @@ public class FighterController : MonoBehaviour
             anim.SetTrigger("Kicking");
             KickingSound.Play();
             CanChangeHeight = false;
+            CanChangeAttackDefend = false;
         }
         
     }
@@ -156,6 +156,7 @@ public class FighterController : MonoBehaviour
         
         IsMoving = false;
         CanChangeHeight = true;
+        CanChangeAttackDefend = true;
     }
 
     void SetJump()
@@ -178,18 +179,21 @@ public class FighterController : MonoBehaviour
         IsJumping = false;
         anim.SetTrigger("IdleTrig");
         CanChangeHeight = true;
+        CanChangeAttackDefend = true;
     }
     void UnSetPunch()
     {
         IsPunching = false;
         anim.SetTrigger("IdleTrig");
         CanChangeHeight = true;
+        CanChangeAttackDefend = true;
     }
     void UnSetKick()
     {
         IsKicking = false;
         anim.SetTrigger("IdleTrig");
         CanChangeHeight = true;
+        CanChangeAttackDefend = true;
     }
     void UnSetMoving()
     {
@@ -204,22 +208,6 @@ public class FighterController : MonoBehaviour
     void AddVelocity()
     {
         playerVelocity.y = Mathf.Sqrt(jumpHeight * -3.0f * gravityValue);
-    }
-
-    private void OnControllerColliderHit(ControllerColliderHit hit)
-    {
-        if(hit.gameObject.tag == "Coin" )
-        {
-            
-        }
-    }
-
-    public void OnTriggerEnter(Collider other)
-    {
-        if(other.gameObject.tag == "Hittable")
-        {
-            Debug.Log("Hit");
-        }
     }
 
     void PlayJumpSound()
