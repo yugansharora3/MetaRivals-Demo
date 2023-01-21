@@ -5,10 +5,13 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
-    path: 
-    guid: 00000000000000000000000000000000
+  - enabled: 1
+    path: Assets/Scenes/SelectionScreen.unity
+    guid: 4ffc1fc5ca3be034ebe875fc04c598b3
   - enabled: 1
     path: Assets/Scenes/walking.unity
     guid: 69784066028585746ba7f2dc0f40c4db
+  - enabled: 1
+    path: Assets/Scenes/Fight.unity
+    guid: 1330261defc390041a780d192f58b133
   m_configObjects: {}
