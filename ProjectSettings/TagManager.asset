@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Coin
   - NPC
+  - Hittable
+  - weapon
   layers:
   - Default
   - TransparentFX

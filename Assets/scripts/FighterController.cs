@@ -81,20 +81,23 @@ public class FighterController : MonoBehaviour
 
         transform.position += moveSpeed * Time.deltaTime * move * 0.1f;
         //controller.Move(moveSpeed * Time.deltaTime * move);
-        anim.SetFloat("moveSpeed", mag);
+        anim.SetFloat("moveSpeed", movementInput.x);
         if (movementInput.x == 0 && !IsMoving)
         {
             if(!IsIdle)
             {
                 anim.SetTrigger("IdleTrig");
                 IsIdle = true;
-                
+                IsMoving = false;
             }
         }
         else
         {
             if(!IsMoving)
+            {
                 anim.SetTrigger("Move");
+                IsMoving = true;
+            }
             IsIdle = false;
         }
 
@@ -150,7 +153,8 @@ public class FighterController : MonoBehaviour
         IsJumping = false;
         IsKicking = false;
         IsPunching = false;
-        //IsMoving = false;
+        
+        IsMoving = false;
         CanChangeHeight = true;
     }
 
@@ -190,6 +194,11 @@ public class FighterController : MonoBehaviour
     void UnSetMoving()
     {
         IsMoving = false;
+    }
+
+    void AfterGettingUp()
+    {
+        anim.SetTrigger("IdleTrig");
     }
 
     void AddVelocity()
