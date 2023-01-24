@@ -4,10 +4,27 @@
 TagManager:
   serializedVersion: 2
   tags:
+  - DisabledTextLayer
   - Coin
   - NPC
   - Hittable
   - weapon
+  - HoverLayer
+  - PrimaryTextLayer
+  - PrimaryLayer
+  - SurfaceLayer
+  - SurfaceTextLayer
+  - SecondaryLayer
+  - BackgroundLayer
+  - BackgroundTextLayer
+  - DisabledLayer
+  - iconView
+  - Search
+  - ErrorLayer
+  - SecondaryTextLayer
+  - SecondryLayer
+  - ErrorTextLayer
+  - Clear
   layers:
   - Default
   - TransparentFX
@@ -17,9 +34,9 @@ TagManager:
   - UI
   - post-processing
   - 
-  - 
-  - 
-  - 
+  - Head
+  - Left
+  - Right
   - 
   - 
   - 
@@ -44,4 +61,7 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: SystemUI
+    uniqueID: 291007281
     locked: 0
