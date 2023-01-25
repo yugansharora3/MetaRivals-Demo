@@ -8,7 +8,7 @@ public class Auth : MonoBehaviour
     // Start is called before the first frame update
     async void Start()
     {
-        ChainAuthManager instance = await ChainAuthManager.Register(SystemInfo.deviceUniqueIdentifier, "app id");
+        ChainAuthManager instance = await ChainAuthManager.Register(SystemInfo.deviceUniqueIdentifier, "WmADvfZuQI");
         Debug.LogError(instance.RegisterCode);
         if(await instance.AwaitLogin())
         {
