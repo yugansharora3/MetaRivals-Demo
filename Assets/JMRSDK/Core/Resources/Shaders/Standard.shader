@@ -78,7 +78,7 @@ Shader "JMRSDK/Standard"
     {
         Pass
         {
-            Tags{ "RenderType" = "Opaque" "LightMode" = "UniversalForward" "PerformanceChecks" = "False" }
+            Tags{ "RenderType" = "Opaque" "LightMode" = "ForwardBase" "PerformanceChecks" = "False" }
             LOD 100
             Blend[_SrcBlend][_DstBlend]
             BlendOp[_BlendOp]
@@ -685,5 +685,5 @@ Shader "JMRSDK/Standard"
     }
     
     FallBack "VertexLit"
-    //CustomEditor "HoloToolkit.Unity.StandardShaderGUI"
+    CustomEditor "HoloToolkit.Unity.StandardShaderGUI"
 }
