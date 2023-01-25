@@ -55,13 +55,13 @@ public class PlayfabManagar : MonoBehaviour
         }
         else
         {
-            PopUpWindowAnim.SetBool("Pop",true);
-            //bool value = EditorUtility.DisplayDialog("Play", "Google Play Games Sign in failed \n Ensure that you have google play games on your device", "Exit");
-            //if(value)
-            //{
-            //    //Exit the game 
-            //    Application.Quit();
-            //}
+            //PopUpWindowAnim.SetBool("Pop",true);
+            ////////////bool value = EditorUtility.DisplayDialog("Play", "Google Play Games Sign in failed \n Ensure that you have google play games on your device", "Exit");
+            ////////////if(value)
+            ////////////{
+            ////////////    //Exit the game 
+            ////////////    Application.Quit();
+            ////////////}
         }
     }
     void OnPlayfabGoogleLoginSuccess(LoginResult result)
