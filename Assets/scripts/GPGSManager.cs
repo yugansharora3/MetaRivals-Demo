@@ -20,7 +20,6 @@ public class GPGSManager : MonoBehaviour
             .AddOauthScope("email")
             .Build();
         SignInGPGS(SignInInteractivity.CanPromptAlways, clientConfiguration);
-        Debug.Log("LOL");
         if (GetComponent<PlayfabManagar>() == null)
             Debug.Log("null");
         else

@@ -5,9 +5,9 @@ document.body.appendChild(Object.assign(document.createElement("script"), { type
 // load web3js to create transactions
 document.body.appendChild(Object.assign(document.createElement("script"), { type: "text/javascript", src: "./web3/lib/web3.min.js" }));
 // uncomment to enable torus wallet
-// document.body.appendChild(Object.assign(document.createElement("script"), { type: "text/javascript", src: "https://cdn.jsdelivr.net/npm/@toruslabs/torus-embed" }));
+document.body.appendChild(Object.assign(document.createElement("script"), { type: "text/javascript", src: "https://cdn.jsdelivr.net/npm/@toruslabs/torus-embed" }));
 // uncomment to enable walletconnect
-// document.body.appendChild(Object.assign(document.createElement("script"), { type: "text/javascript", src: "https://unpkg.com/@walletconnect/web3-provider@1.8.0/dist/umd/index.min.js" }));
+document.body.appendChild(Object.assign(document.createElement("script"), { type: "text/javascript", src: "https://unpkg.com/@walletconnect/web3-provider@1.8.0/dist/umd/index.min.js" }));
 
 // load web3gl to connect to unity
 window.web3gl = {
