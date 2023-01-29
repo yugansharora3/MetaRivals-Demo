@@ -7,19 +7,9 @@ public class FighterController : MonoBehaviour
     private Animator anim;
 
     private ShibaControls playerinput;
-    //private CharacterController controller;
-
-    private Transform cameraMain;
+    private PlayerCommon common;
     private Vector3 playerVelocity;
-    private bool groundedPlayer;
-    private bool IsPunching = false;
-    private bool IsKicking = false;
-    private bool IsJumping = false;
-    private bool IsIdle = false;
-    private bool IsMoving = false;
     private Vector2 forward;
-    bool CanChangeHeight = true;
-    bool CanChangeAttackDefend = true;
 
     [SerializeField]
     private float playerSpeed = 25.0f;
@@ -52,24 +42,19 @@ public class FighterController : MonoBehaviour
 
     private void Start()
     {
-        cameraMain = Camera.main.transform;
+        common = GetComponent<PlayerCommon>();
     }
 
     void Update()
     {
-        //if (playerVelocity.y < 0)
-        //{
-        //    playerVelocity.y = 0f;
-        //}
-
         Vector2 movementInput = playerinput.PlayerMain.Move.ReadValue<Vector2>();
 
-        if(CanChangeHeight)
+        if(common.CanChangeHeight)
         {
             anim.SetFloat("height",movementInput.y);
         }
         anim.SetFloat("moveSpeed", movementInput.x);
-        if(CanChangeAttackDefend)
+        if(common.CanChangeAttackDefend)
         {
             anim.SetFloat("AttackDefend", movementInput.x);
         }
@@ -85,40 +70,28 @@ public class FighterController : MonoBehaviour
 
         transform.position += moveSpeed * Time.deltaTime * move * 0.1f;
         
-        if (movementInput.x == 0 && !IsMoving)
+        if (movementInput.x == 0)
         {
-            if(!IsIdle)
+            if(!common.IsIdle)
             {
+                anim.SetBool("Moving", false);
                 anim.SetTrigger("IdleTrig");
-                IsIdle = true;
-                IsMoving = false;
+                common.IsIdle = true;
+                common.IsMoving = false;
             }
         }
         else
         {
-            if(!IsMoving)
-            {
-                anim.SetTrigger("Move");
-                IsMoving = true;
-            }
-            IsIdle = false;
-        }
-
-        if (move != Vector3.zero)
-        {
-            //anim.SetBool("move", true);
-            //gameObject.transform.forward = move;
-        }
-        else
-        {
-            //anim.SetBool("move", false);
+            anim.SetBool("Moving", true);
+            common.IsMoving = true;
+            common.IsIdle = false;
         }
         
-        if (playerinput.PlayerMain.Jump.triggered && !IsJumping)
+        if (playerinput.PlayerMain.Jump.triggered && !common.IsJumping)
         {
             anim.SetBool("jump",true);
             anim.SetTrigger("Jumping");
-            IsJumping = true;
+            common.IsJumping = true;
             if (!JumpingSound.isPlaying)
             {
                 JumpingSound.Play();
@@ -128,81 +101,24 @@ public class FighterController : MonoBehaviour
         {
             anim.SetBool("jump", false);
         }
-        if (playerinput.PlayerMain.Punch.triggered && !IsPunching)
+        if (playerinput.PlayerMain.Punch.triggered && !common.IsPunching)
         {
-            IsPunching = true;
+            common.IsPunching = true;
             anim.SetTrigger("Punching");
             PunchingSound.Play();
-            CanChangeHeight = false;
-            CanChangeAttackDefend = false;
+            common.CanChangeHeight = false;
+            common.CanChangeAttackDefend = false;
         }
 
-        if (playerinput.PlayerMain.Kick.triggered && !IsKicking)
+        if (playerinput.PlayerMain.Kick.triggered && !common.IsKicking)
         {
-            IsKicking = true;
+            common.IsKicking = true;
             anim.SetTrigger("Kicking");
             KickingSound.Play();
-            CanChangeHeight = false;
-            CanChangeAttackDefend = false;
+            common.CanChangeHeight = false;
+            common.CanChangeAttackDefend = false;
         }
         
-    }
-
-    void Set()
-    {
-        IsJumping = false;
-        IsKicking = false;
-        IsPunching = false;
-        
-        IsMoving = false;
-        CanChangeHeight = true;
-        CanChangeAttackDefend = true;
-    }
-
-    void SetJump()
-    {
-        IsKicking = false;
-        IsPunching = false;
-    }
-    void SetPunch()
-    {
-        IsKicking = false;
-        IsJumping = false;
-    }
-    void SetKick()
-    {
-        IsPunching = false;
-        IsJumping = false;
-    }
-    void UnSetJump()
-    {
-        IsJumping = false;
-        anim.SetTrigger("IdleTrig");
-        CanChangeHeight = true;
-        CanChangeAttackDefend = true;
-    }
-    void UnSetPunch()
-    {
-        IsPunching = false;
-        anim.SetTrigger("IdleTrig");
-        CanChangeHeight = true;
-        CanChangeAttackDefend = true;
-    }
-    void UnSetKick()
-    {
-        IsKicking = false;
-        anim.SetTrigger("IdleTrig");
-        CanChangeHeight = true;
-        CanChangeAttackDefend = true;
-    }
-    void UnSetMoving()
-    {
-        IsMoving = false;
-    }
-
-    void AfterGettingUp()
-    {
-        anim.SetTrigger("IdleTrig");
     }
 
     void AddVelocity()

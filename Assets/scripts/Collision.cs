@@ -13,7 +13,7 @@ public class Collision : MonoBehaviour
     {
         if (other.gameObject.tag == "Hittable")
         {
-            Debug.Log("Hit");
+            //Debug.Log("Hit");
         }
     }
     // Update is called once per frame
